@@ -81,9 +81,13 @@ export default class InlineHtmlCompiler extends CompileCache {
       if (src.match(/^([\/]|[A-Za-z]:)/i)) return;
       
       try {
-        const relativeCurrentScriptDir = path.relative(__dirname, process.cwd());
-        const relativeFilePathDir = path.join(relativeCurrentScriptDir, path.dirname(filePath));
-        $(el).attr('src', path.join(relativeFilePathDir, src));
+        if (path.isAbsolute(filePath)) {
+          $(el).attr('src', path.resolve(path.dirname(filePath), src));
+        } else {
+          const relativeCurrentScriptDir = path.relative(__dirname, process.cwd());
+          const relativeFilePathDir = path.join(relativeCurrentScriptDir, path.dirname(filePath));
+          $(el).attr('src', path.join(relativeFilePathDir, src));
+        }
       } catch (e) {
         $(el).text(`${e.message}\n${e.stack}`);
       }
