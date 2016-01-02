@@ -32,7 +32,7 @@ export default class LessCompiler extends CompilerBase {
     lessjs = lessjs || require('less');
 
     let paths = Object.keys(this.seenFilePaths);
-    paths.unshift('.');
+    paths.unshift(path.resolve(path.dirname(filePath)));
 
     this.seenFilePaths[path.dirname(filePath)] = true;
 
@@ -64,7 +64,8 @@ export default class LessCompiler extends CompilerBase {
     let error = null;
 
     let paths = Object.keys(this.seenFilePaths);
-    paths.unshift('.');
+    paths.unshift(path.resolve(path.dirname(filePath)));
+    
     this.seenFilePaths[path.dirname(filePath)] = true;
 
     let opts = _.extend({}, this.compilerOptions, {
