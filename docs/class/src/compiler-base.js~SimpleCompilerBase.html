@@ -68,6 +68,8 @@
   <div class="description" data-ice="description"><p>This class implements all of the async methods of CompilerBase by just 
 calling the sync version. Use it to save some time when implementing 
 simple compilers.</p>
+<p>To use it, implement the compile method, the getCompilerVersion method, 
+and the getInputMimeTypes static method. </p>
 </div>
 
   
@@ -313,7 +315,7 @@ simple compilers.</p>
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-compile">compile</a></span></span><span data-ice="signature">(sourceCode: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-compile">compile</a></span></span><span data-ice="signature">(sourceCode: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
         </p>
       </div>
       <div>
@@ -339,7 +341,7 @@ simple compilers.</p>
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-compileSync">compileSync</a></span></span><span data-ice="signature">(sourceCode: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span></span>
+           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-compileSync">compileSync</a></span></span><span data-ice="signature">(sourceCode: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span></span>
         </p>
       </div>
       <div>
@@ -365,7 +367,7 @@ simple compilers.</p>
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-determineDependentFiles">determineDependentFiles</a></span></span><span data-ice="signature">(sourceCode: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
+           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-determineDependentFiles">determineDependentFiles</a></span></span><span data-ice="signature">(sourceCode: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -391,7 +393,7 @@ simple compilers.</p>
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-determineDependentFilesSync">determineDependentFilesSync</a></span></span><span data-ice="signature">(sourceCode: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
+           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-determineDependentFilesSync">determineDependentFilesSync</a></span></span><span data-ice="signature">(sourceCode: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span><span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span><span>[]</span></span></span>
         </p>
       </div>
       <div>
@@ -444,7 +446,7 @@ compiler library.</p>
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-shouldCompileFile">shouldCompileFile</a></span></span><span data-ice="signature">(fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>bool</span></span>
+           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-shouldCompileFile">shouldCompileFile</a></span></span><span data-ice="signature">(fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>bool</span></span>
         </p>
       </div>
       <div>
@@ -470,7 +472,7 @@ compiler library.</p>
     <td>
       <div>
         <p>
-           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-shouldCompileFileSync">shouldCompileFileSync</a></span></span><span data-ice="signature">(fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">Object</a></span>): <span>bool</span></span>
+           <span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html#instance-method-shouldCompileFileSync">shouldCompileFileSync</a></span></span><span data-ice="signature">(fileName: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String">string</a></span>, compilerContext: <span><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object">object</a></span>): <span>bool</span></span>
         </p>
       </div>
       <div>

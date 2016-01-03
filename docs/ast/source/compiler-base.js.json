@@ -1,7 +1,7 @@
 {
   "type": "Program",
   "start": 0,
-  "end": 4648,
+  "end": 4767,
   "loc": {
     "start": {
       "line": 1,
@@ -16,43 +16,43 @@
   "body": [
     {
       "type": "ExportNamedDeclaration",
-      "start": 211,
-      "end": 3892,
+      "start": 209,
+      "end": 3887,
       "loc": {
         "start": {
-          "line": 10,
+          "line": 8,
           "column": 0
         },
         "end": {
-          "line": 111,
+          "line": 108,
           "column": 1
         }
       },
       "declaration": {
         "type": "ClassDeclaration",
-        "start": 218,
-        "end": 3892,
+        "start": 216,
+        "end": 3887,
         "loc": {
           "start": {
-            "line": 10,
+            "line": 8,
             "column": 7
           },
           "end": {
-            "line": 111,
+            "line": 108,
             "column": 1
           }
         },
         "id": {
           "type": "Identifier",
-          "start": 224,
-          "end": 236,
+          "start": 222,
+          "end": 234,
           "loc": {
             "start": {
-              "line": 10,
+              "line": 8,
               "column": 13
             },
             "end": {
-              "line": 10,
+              "line": 8,
               "column": 25
             }
           },
@@ -62,45 +62,45 @@
         "superClass": null,
         "body": {
           "type": "ClassBody",
-          "start": 237,
-          "end": 3892,
+          "start": 235,
+          "end": 3887,
           "loc": {
             "start": {
-              "line": 10,
+              "line": 8,
               "column": 26
             },
             "end": {
-              "line": 111,
+              "line": 108,
               "column": 1
             }
           },
           "body": [
             {
               "type": "MethodDefinition",
-              "start": 241,
-              "end": 291,
+              "start": 239,
+              "end": 289,
               "loc": {
                 "start": {
-                  "line": 11,
+                  "line": 9,
                   "column": 2
                 },
                 "end": {
-                  "line": 13,
+                  "line": 11,
                   "column": 3
                 }
               },
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 241,
-                "end": 252,
+                "start": 239,
+                "end": 250,
                 "loc": {
                   "start": {
-                    "line": 11,
+                    "line": 9,
                     "column": 2
                   },
                   "end": {
-                    "line": 11,
+                    "line": 9,
                     "column": 13
                   }
                 },
@@ -110,15 +110,15 @@
               "kind": "constructor",
               "value": {
                 "type": "FunctionExpression",
-                "start": 252,
-                "end": 291,
+                "start": 250,
+                "end": 289,
                 "loc": {
                   "start": {
-                    "line": 11,
+                    "line": 9,
                     "column": 13
                   },
                   "end": {
-                    "line": 13,
+                    "line": 11,
                     "column": 3
                   }
                 },
@@ -129,88 +129,88 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 255,
-                  "end": 291,
+                  "start": 253,
+                  "end": 289,
                   "loc": {
                     "start": {
-                      "line": 11,
+                      "line": 9,
                       "column": 16
                     },
                     "end": {
-                      "line": 13,
+                      "line": 11,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 261,
-                      "end": 287,
+                      "start": 259,
+                      "end": 285,
                       "loc": {
                         "start": {
-                          "line": 12,
+                          "line": 10,
                           "column": 4
                         },
                         "end": {
-                          "line": 12,
+                          "line": 10,
                           "column": 30
                         }
                       },
                       "expression": {
                         "type": "AssignmentExpression",
-                        "start": 261,
-                        "end": 286,
+                        "start": 259,
+                        "end": 284,
                         "loc": {
                           "start": {
-                            "line": 12,
+                            "line": 10,
                             "column": 4
                           },
                           "end": {
-                            "line": 12,
+                            "line": 10,
                             "column": 29
                           }
                         },
                         "operator": "=",
                         "left": {
                           "type": "MemberExpression",
-                          "start": 261,
-                          "end": 281,
+                          "start": 259,
+                          "end": 279,
                           "loc": {
                             "start": {
-                              "line": 12,
+                              "line": 10,
                               "column": 4
                             },
                             "end": {
-                              "line": 12,
+                              "line": 10,
                               "column": 24
                             }
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 261,
-                            "end": 265,
+                            "start": 259,
+                            "end": 263,
                             "loc": {
                               "start": {
-                                "line": 12,
+                                "line": 10,
                                 "column": 4
                               },
                               "end": {
-                                "line": 12,
+                                "line": 10,
                                 "column": 8
                               }
                             }
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 266,
-                            "end": 281,
+                            "start": 264,
+                            "end": 279,
                             "loc": {
                               "start": {
-                                "line": 12,
+                                "line": 10,
                                 "column": 9
                               },
                               "end": {
-                                "line": 12,
+                                "line": 10,
                                 "column": 24
                               }
                             },
@@ -220,15 +220,15 @@
                         },
                         "right": {
                           "type": "ObjectExpression",
-                          "start": 284,
-                          "end": 286,
+                          "start": 282,
+                          "end": 284,
                           "loc": {
                             "start": {
-                              "line": 12,
+                              "line": 10,
                               "column": 27
                             },
                             "end": {
-                              "line": 12,
+                              "line": 10,
                               "column": 29
                             }
                           },
@@ -245,51 +245,51 @@
                 {
                   "type": "Block",
                   "value": "*  \n   * This method describes the MIME types that your compiler supports as input. \n   * Many precompiled file types don't have a specific MIME type, so if it's not\n   * recognized by the mime-types package, you need to patch rig-mime-types in\n   * electron-compile.\n   *\n   * @return {string[]}  An array of MIME types that this compiler can compile.\n   *\n   * @abstract\n   ",
-                  "start": 300,
-                  "end": 680,
+                  "start": 295,
+                  "end": 675,
                   "loc": {
                     "start": {
-                      "line": 16,
+                      "line": 13,
                       "column": 2
                     },
                     "end": {
-                      "line": 25,
+                      "line": 22,
                       "column": 5
                     }
                   },
                   "range": [
-                    300,
-                    680
+                    295,
+                    675
                   ]
                 }
               ]
             },
             {
               "type": "MethodDefinition",
-              "start": 686,
-              "end": 756,
+              "start": 681,
+              "end": 751,
               "loc": {
                 "start": {
-                  "line": 26,
+                  "line": 23,
                   "column": 2
                 },
                 "end": {
-                  "line": 28,
+                  "line": 25,
                   "column": 3
                 }
               },
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 693,
-                "end": 710,
+                "start": 688,
+                "end": 705,
                 "loc": {
                   "start": {
-                    "line": 26,
+                    "line": 23,
                     "column": 9
                   },
                   "end": {
-                    "line": 26,
+                    "line": 23,
                     "column": 26
                   }
                 },
@@ -299,15 +299,15 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 710,
-                "end": 756,
+                "start": 705,
+                "end": 751,
                 "loc": {
                   "start": {
-                    "line": 26,
+                    "line": 23,
                     "column": 26
                   },
                   "end": {
-                    "line": 28,
+                    "line": 25,
                     "column": 3
                   }
                 },
@@ -318,58 +318,58 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 713,
-                  "end": 756,
+                  "start": 708,
+                  "end": 751,
                   "loc": {
                     "start": {
-                      "line": 26,
+                      "line": 23,
                       "column": 29
                     },
                     "end": {
-                      "line": 28,
+                      "line": 25,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ThrowStatement",
-                      "start": 719,
-                      "end": 752,
+                      "start": 714,
+                      "end": 747,
                       "loc": {
                         "start": {
-                          "line": 27,
+                          "line": 24,
                           "column": 4
                         },
                         "end": {
-                          "line": 27,
+                          "line": 24,
                           "column": 37
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 725,
-                        "end": 751,
+                        "start": 720,
+                        "end": 746,
                         "loc": {
                           "start": {
-                            "line": 27,
+                            "line": 24,
                             "column": 10
                           },
                           "end": {
-                            "line": 27,
+                            "line": 24,
                             "column": 36
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 729,
-                          "end": 734,
+                          "start": 724,
+                          "end": 729,
                           "loc": {
                             "start": {
-                              "line": 27,
+                              "line": 24,
                               "column": 14
                             },
                             "end": {
-                              "line": 27,
+                              "line": 24,
                               "column": 19
                             }
                           },
@@ -378,15 +378,15 @@
                         "arguments": [
                           {
                             "type": "Literal",
-                            "start": 735,
-                            "end": 750,
+                            "start": 730,
+                            "end": 745,
                             "loc": {
                               "start": {
-                                "line": 27,
+                                "line": 24,
                                 "column": 20
                               },
                               "end": {
-                                "line": 27,
+                                "line": 24,
                                 "column": 35
                               }
                             },
@@ -406,73 +406,73 @@
                 {
                   "type": "Block",
                   "value": "*  \n   * This method describes the MIME types that your compiler supports as input. \n   * Many precompiled file types don't have a specific MIME type, so if it's not\n   * recognized by the mime-types package, you need to patch rig-mime-types in\n   * electron-compile.\n   *\n   * @return {string[]}  An array of MIME types that this compiler can compile.\n   *\n   * @abstract\n   ",
-                  "start": 300,
-                  "end": 680,
+                  "start": 295,
+                  "end": 675,
                   "loc": {
                     "start": {
-                      "line": 16,
+                      "line": 13,
                       "column": 2
                     },
                     "end": {
-                      "line": 25,
+                      "line": 22,
                       "column": 5
                     }
                   },
                   "range": [
-                    300,
-                    680
+                    295,
+                    675
                   ]
                 }
               ],
               "trailingComments": [
                 {
                   "type": "Block",
-                  "value": "*\n   * Determines whether a file should be compiled\n   *    \n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<bool>}        True if you are able to compile this file.\n   *\n   * @abstract\n   ",
-                  "start": 761,
-                  "end": 1225,
+                  "value": "*\n   * Determines whether a file should be compiled\n   *    \n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<bool>}        True if you are able to compile this file.\n   *\n   * @abstract\n   ",
+                  "start": 756,
+                  "end": 1220,
                   "loc": {
                     "start": {
-                      "line": 31,
+                      "line": 28,
                       "column": 2
                     },
                     "end": {
-                      "line": 41,
+                      "line": 38,
                       "column": 5
                     }
                   },
                   "range": [
-                    761,
-                    1225
+                    756,
+                    1220
                   ]
                 }
               ]
             },
             {
               "type": "MethodDefinition",
-              "start": 1231,
-              "end": 1325,
+              "start": 1226,
+              "end": 1320,
               "loc": {
                 "start": {
-                  "line": 42,
+                  "line": 39,
                   "column": 2
                 },
                 "end": {
-                  "line": 44,
+                  "line": 41,
                   "column": 3
                 }
               },
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 1237,
-                "end": 1254,
+                "start": 1232,
+                "end": 1249,
                 "loc": {
                   "start": {
-                    "line": 42,
+                    "line": 39,
                     "column": 8
                   },
                   "end": {
-                    "line": 42,
+                    "line": 39,
                     "column": 25
                   }
                 },
@@ -482,15 +482,15 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 1254,
-                "end": 1325,
+                "start": 1249,
+                "end": 1320,
                 "loc": {
                   "start": {
-                    "line": 42,
+                    "line": 39,
                     "column": 25
                   },
                   "end": {
-                    "line": 44,
+                    "line": 41,
                     "column": 3
                   }
                 },
@@ -501,15 +501,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 1255,
-                    "end": 1263,
+                    "start": 1250,
+                    "end": 1258,
                     "loc": {
                       "start": {
-                        "line": 42,
+                        "line": 39,
                         "column": 26
                       },
                       "end": {
-                        "line": 42,
+                        "line": 39,
                         "column": 34
                       }
                     },
@@ -517,15 +517,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 1265,
-                    "end": 1280,
+                    "start": 1260,
+                    "end": 1275,
                     "loc": {
                       "start": {
-                        "line": 42,
+                        "line": 39,
                         "column": 36
                       },
                       "end": {
-                        "line": 42,
+                        "line": 39,
                         "column": 51
                       }
                     },
@@ -534,58 +534,58 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 1282,
-                  "end": 1325,
+                  "start": 1277,
+                  "end": 1320,
                   "loc": {
                     "start": {
-                      "line": 42,
+                      "line": 39,
                       "column": 53
                     },
                     "end": {
-                      "line": 44,
+                      "line": 41,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ThrowStatement",
-                      "start": 1288,
-                      "end": 1321,
+                      "start": 1283,
+                      "end": 1316,
                       "loc": {
                         "start": {
-                          "line": 43,
+                          "line": 40,
                           "column": 4
                         },
                         "end": {
-                          "line": 43,
+                          "line": 40,
                           "column": 37
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 1294,
-                        "end": 1320,
+                        "start": 1289,
+                        "end": 1315,
                         "loc": {
                           "start": {
-                            "line": 43,
+                            "line": 40,
                             "column": 10
                           },
                           "end": {
-                            "line": 43,
+                            "line": 40,
                             "column": 36
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 1298,
-                          "end": 1303,
+                          "start": 1293,
+                          "end": 1298,
                           "loc": {
                             "start": {
-                              "line": 43,
+                              "line": 40,
                               "column": 14
                             },
                             "end": {
-                              "line": 43,
+                              "line": 40,
                               "column": 19
                             }
                           },
@@ -594,15 +594,15 @@
                         "arguments": [
                           {
                             "type": "Literal",
-                            "start": 1304,
-                            "end": 1319,
+                            "start": 1299,
+                            "end": 1314,
                             "loc": {
                               "start": {
-                                "line": 43,
+                                "line": 40,
                                 "column": 20
                               },
                               "end": {
-                                "line": 43,
+                                "line": 40,
                                 "column": 35
                               }
                             },
@@ -621,74 +621,74 @@
               "leadingComments": [
                 {
                   "type": "Block",
-                  "value": "*\n   * Determines whether a file should be compiled\n   *    \n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {bool}        True if you are able to compile this file.\n   *\n   * @abstract\n   ",
-                  "start": 761,
-                  "end": 1225,
+                  "value": "*\n   * Determines whether a file should be compiled\n   *    \n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {bool}        True if you are able to compile this file.\n   *\n   * @abstract\n   ",
+                  "start": 756,
+                  "end": 1220,
                   "loc": {
                     "start": {
-                      "line": 31,
+                      "line": 28,
                       "column": 2
                     },
                     "end": {
-                      "line": 41,
+                      "line": 38,
                       "column": 5
                     }
                   },
                   "range": [
-                    761,
-                    1225
+                    756,
+                    1220
                   ]
                 }
               ],
               "trailingComments": [
                 {
                   "type": "Block",
-                  "value": "*  \n   * Returns the dependent files of this file. This is used for languages such\n   * as LESS which allow you to import / reference other related files. In future\n   * versions of electron-compile, we will use this information to invalidate\n   * all of the parent files if a child file changes.\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<string[]>}    An array of dependent file paths, or an empty\n   *                                array if there are no dependent files. \n   *\n   * @abstract\n   ",
-                  "start": 1332,
-                  "end": 2181,
+                  "value": "*  \n   * Returns the dependent files of this file. This is used for languages such\n   * as LESS which allow you to import / reference other related files. In future\n   * versions of electron-compile, we will use this information to invalidate\n   * all of the parent files if a child file changes.\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<string[]>}    An array of dependent file paths, or an empty\n   *                                array if there are no dependent files. \n   *\n   * @abstract\n   ",
+                  "start": 1327,
+                  "end": 2176,
                   "loc": {
                     "start": {
-                      "line": 47,
+                      "line": 44,
                       "column": 2
                     },
                     "end": {
-                      "line": 62,
+                      "line": 59,
                       "column": 5
                     }
                   },
                   "range": [
-                    1332,
-                    2181
+                    1327,
+                    2176
                   ]
                 }
               ]
             },
             {
               "type": "MethodDefinition",
-              "start": 2187,
-              "end": 2299,
+              "start": 2182,
+              "end": 2294,
               "loc": {
                 "start": {
-                  "line": 63,
+                  "line": 60,
                   "column": 2
                 },
                 "end": {
-                  "line": 65,
+                  "line": 62,
                   "column": 3
                 }
               },
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 2193,
-                "end": 2216,
+                "start": 2188,
+                "end": 2211,
                 "loc": {
                   "start": {
-                    "line": 63,
+                    "line": 60,
                     "column": 8
                   },
                   "end": {
-                    "line": 63,
+                    "line": 60,
                     "column": 31
                   }
                 },
@@ -698,15 +698,15 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 2216,
-                "end": 2299,
+                "start": 2211,
+                "end": 2294,
                 "loc": {
                   "start": {
-                    "line": 63,
+                    "line": 60,
                     "column": 31
                   },
                   "end": {
-                    "line": 65,
+                    "line": 62,
                     "column": 3
                   }
                 },
@@ -717,15 +717,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 2217,
-                    "end": 2227,
+                    "start": 2212,
+                    "end": 2222,
                     "loc": {
                       "start": {
-                        "line": 63,
+                        "line": 60,
                         "column": 32
                       },
                       "end": {
-                        "line": 63,
+                        "line": 60,
                         "column": 42
                       }
                     },
@@ -733,15 +733,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 2229,
-                    "end": 2237,
+                    "start": 2224,
+                    "end": 2232,
                     "loc": {
                       "start": {
-                        "line": 63,
+                        "line": 60,
                         "column": 44
                       },
                       "end": {
-                        "line": 63,
+                        "line": 60,
                         "column": 52
                       }
                     },
@@ -749,15 +749,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 2239,
-                    "end": 2254,
+                    "start": 2234,
+                    "end": 2249,
                     "loc": {
                       "start": {
-                        "line": 63,
+                        "line": 60,
                         "column": 54
                       },
                       "end": {
-                        "line": 63,
+                        "line": 60,
                         "column": 69
                       }
                     },
@@ -766,58 +766,58 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 2256,
-                  "end": 2299,
+                  "start": 2251,
+                  "end": 2294,
                   "loc": {
                     "start": {
-                      "line": 63,
+                      "line": 60,
                       "column": 71
                     },
                     "end": {
-                      "line": 65,
+                      "line": 62,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ThrowStatement",
-                      "start": 2262,
-                      "end": 2295,
+                      "start": 2257,
+                      "end": 2290,
                       "loc": {
                         "start": {
-                          "line": 64,
+                          "line": 61,
                           "column": 4
                         },
                         "end": {
-                          "line": 64,
+                          "line": 61,
                           "column": 37
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 2268,
-                        "end": 2294,
+                        "start": 2263,
+                        "end": 2289,
                         "loc": {
                           "start": {
-                            "line": 64,
+                            "line": 61,
                             "column": 10
                           },
                           "end": {
-                            "line": 64,
+                            "line": 61,
                             "column": 36
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 2272,
-                          "end": 2277,
+                          "start": 2267,
+                          "end": 2272,
                           "loc": {
                             "start": {
-                              "line": 64,
+                              "line": 61,
                               "column": 14
                             },
                             "end": {
-                              "line": 64,
+                              "line": 61,
                               "column": 19
                             }
                           },
@@ -826,15 +826,15 @@
                         "arguments": [
                           {
                             "type": "Literal",
-                            "start": 2278,
-                            "end": 2293,
+                            "start": 2273,
+                            "end": 2288,
                             "loc": {
                               "start": {
-                                "line": 64,
+                                "line": 61,
                                 "column": 20
                               },
                               "end": {
-                                "line": 64,
+                                "line": 61,
                                 "column": 35
                               }
                             },
@@ -853,74 +853,74 @@
               "leadingComments": [
                 {
                   "type": "Block",
-                  "value": "*  \n   * Returns the dependent files of this file. This is used for languages such\n   * as LESS which allow you to import / reference other related files. In future\n   * versions of electron-compile, we will use this information to invalidate\n   * all of the parent files if a child file changes.\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {string[]}    An array of dependent file paths, or an empty\n   *                                array if there are no dependent files. \n   *\n   * @abstract\n   ",
-                  "start": 1332,
-                  "end": 2181,
+                  "value": "*  \n   * Returns the dependent files of this file. This is used for languages such\n   * as LESS which allow you to import / reference other related files. In future\n   * versions of electron-compile, we will use this information to invalidate\n   * all of the parent files if a child file changes.\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {string[]}    An array of dependent file paths, or an empty\n   *                                array if there are no dependent files. \n   *\n   * @abstract\n   ",
+                  "start": 1327,
+                  "end": 2176,
                   "loc": {
                     "start": {
-                      "line": 47,
+                      "line": 44,
                       "column": 2
                     },
                     "end": {
-                      "line": 62,
+                      "line": 59,
                       "column": 5
                     }
                   },
                   "range": [
-                    1332,
-                    2181
+                    1327,
+                    2176
                   ]
                 }
               ],
               "trailingComments": [
                 {
                   "type": "Block",
-                  "value": "*  \n   * Compiles the file\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName      The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<Object>}      An object representing the compiled result\n   * @property {string} code        The compiled code\n   * @property {string} mimeType    The MIME type of the compiled result, which \n   *                                should exist in the mime-types database.\n   *\n   * @abstract\n   ",
-                  "start": 2306,
-                  "end": 3016,
+                  "value": "*  \n   * Compiles the file\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName      The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<object>}      An object representing the compiled result\n   * @property {string} code        The compiled code\n   * @property {string} mimeType    The MIME type of the compiled result, which \n   *                                should exist in the mime-types database.\n   *\n   * @abstract\n   ",
+                  "start": 2301,
+                  "end": 3011,
                   "loc": {
                     "start": {
-                      "line": 68,
+                      "line": 65,
                       "column": 2
                     },
                     "end": {
-                      "line": 82,
+                      "line": 79,
                       "column": 5
                     }
                   },
                   "range": [
-                    2306,
-                    3016
+                    2301,
+                    3011
                   ]
                 }
               ]
             },
             {
               "type": "MethodDefinition",
-              "start": 3022,
-              "end": 3118,
+              "start": 3017,
+              "end": 3113,
               "loc": {
                 "start": {
-                  "line": 83,
+                  "line": 80,
                   "column": 2
                 },
                 "end": {
-                  "line": 85,
+                  "line": 82,
                   "column": 3
                 }
               },
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 3028,
-                "end": 3035,
+                "start": 3023,
+                "end": 3030,
                 "loc": {
                   "start": {
-                    "line": 83,
+                    "line": 80,
                     "column": 8
                   },
                   "end": {
-                    "line": 83,
+                    "line": 80,
                     "column": 15
                   }
                 },
@@ -930,15 +930,15 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 3035,
-                "end": 3118,
+                "start": 3030,
+                "end": 3113,
                 "loc": {
                   "start": {
-                    "line": 83,
+                    "line": 80,
                     "column": 15
                   },
                   "end": {
-                    "line": 85,
+                    "line": 82,
                     "column": 3
                   }
                 },
@@ -949,15 +949,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 3036,
-                    "end": 3046,
+                    "start": 3031,
+                    "end": 3041,
                     "loc": {
                       "start": {
-                        "line": 83,
+                        "line": 80,
                         "column": 16
                       },
                       "end": {
-                        "line": 83,
+                        "line": 80,
                         "column": 26
                       }
                     },
@@ -965,15 +965,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 3048,
-                    "end": 3056,
+                    "start": 3043,
+                    "end": 3051,
                     "loc": {
                       "start": {
-                        "line": 83,
+                        "line": 80,
                         "column": 28
                       },
                       "end": {
-                        "line": 83,
+                        "line": 80,
                         "column": 36
                       }
                     },
@@ -981,15 +981,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 3058,
-                    "end": 3073,
+                    "start": 3053,
+                    "end": 3068,
                     "loc": {
                       "start": {
-                        "line": 83,
+                        "line": 80,
                         "column": 38
                       },
                       "end": {
-                        "line": 83,
+                        "line": 80,
                         "column": 53
                       }
                     },
@@ -998,58 +998,58 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3075,
-                  "end": 3118,
+                  "start": 3070,
+                  "end": 3113,
                   "loc": {
                     "start": {
-                      "line": 83,
+                      "line": 80,
                       "column": 55
                     },
                     "end": {
-                      "line": 85,
+                      "line": 82,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ThrowStatement",
-                      "start": 3081,
-                      "end": 3114,
+                      "start": 3076,
+                      "end": 3109,
                       "loc": {
                         "start": {
-                          "line": 84,
+                          "line": 81,
                           "column": 4
                         },
                         "end": {
-                          "line": 84,
+                          "line": 81,
                           "column": 37
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 3087,
-                        "end": 3113,
+                        "start": 3082,
+                        "end": 3108,
                         "loc": {
                           "start": {
-                            "line": 84,
+                            "line": 81,
                             "column": 10
                           },
                           "end": {
-                            "line": 84,
+                            "line": 81,
                             "column": 36
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 3091,
-                          "end": 3096,
+                          "start": 3086,
+                          "end": 3091,
                           "loc": {
                             "start": {
-                              "line": 84,
+                              "line": 81,
                               "column": 14
                             },
                             "end": {
-                              "line": 84,
+                              "line": 81,
                               "column": 19
                             }
                           },
@@ -1058,15 +1058,15 @@
                         "arguments": [
                           {
                             "type": "Literal",
-                            "start": 3097,
-                            "end": 3112,
+                            "start": 3092,
+                            "end": 3107,
                             "loc": {
                               "start": {
-                                "line": 84,
+                                "line": 81,
                                 "column": 20
                               },
                               "end": {
-                                "line": 84,
+                                "line": 81,
                                 "column": 35
                               }
                             },
@@ -1083,52 +1083,52 @@
               "leadingComments": [
                 {
                   "type": "Block",
-                  "value": "*  \n   * Compiles the file\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName      The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Object}      An object representing the compiled result\n   * @property {string} code        The compiled code\n   * @property {string} mimeType    The MIME type of the compiled result, which \n   *                                should exist in the mime-types database.\n   *\n   * @abstract\n   ",
-                  "start": 2306,
-                  "end": 3016,
+                  "value": "*  \n   * Compiles the file\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName      The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {object}      An object representing the compiled result\n   * @property {string} code        The compiled code\n   * @property {string} mimeType    The MIME type of the compiled result, which \n   *                                should exist in the mime-types database.\n   *\n   * @abstract\n   ",
+                  "start": 2301,
+                  "end": 3011,
                   "loc": {
                     "start": {
-                      "line": 68,
+                      "line": 65,
                       "column": 2
                     },
                     "end": {
-                      "line": 82,
+                      "line": 79,
                       "column": 5
                     }
                   },
                   "range": [
-                    2306,
-                    3016
+                    2301,
+                    3011
                   ]
                 }
               ]
             },
             {
               "type": "MethodDefinition",
-              "start": 3122,
-              "end": 3214,
+              "start": 3117,
+              "end": 3209,
               "loc": {
                 "start": {
-                  "line": 87,
+                  "line": 84,
                   "column": 2
                 },
                 "end": {
-                  "line": 89,
+                  "line": 86,
                   "column": 3
                 }
               },
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 3122,
-                "end": 3143,
+                "start": 3117,
+                "end": 3138,
                 "loc": {
                   "start": {
-                    "line": 87,
+                    "line": 84,
                     "column": 2
                   },
                   "end": {
-                    "line": 87,
+                    "line": 84,
                     "column": 23
                   }
                 },
@@ -1138,15 +1138,15 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 3143,
-                "end": 3214,
+                "start": 3138,
+                "end": 3209,
                 "loc": {
                   "start": {
-                    "line": 87,
+                    "line": 84,
                     "column": 23
                   },
                   "end": {
-                    "line": 89,
+                    "line": 86,
                     "column": 3
                   }
                 },
@@ -1157,15 +1157,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 3144,
-                    "end": 3152,
+                    "start": 3139,
+                    "end": 3147,
                     "loc": {
                       "start": {
-                        "line": 87,
+                        "line": 84,
                         "column": 24
                       },
                       "end": {
-                        "line": 87,
+                        "line": 84,
                         "column": 32
                       }
                     },
@@ -1173,15 +1173,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 3154,
-                    "end": 3169,
+                    "start": 3149,
+                    "end": 3164,
                     "loc": {
                       "start": {
-                        "line": 87,
+                        "line": 84,
                         "column": 34
                       },
                       "end": {
-                        "line": 87,
+                        "line": 84,
                         "column": 49
                       }
                     },
@@ -1190,58 +1190,58 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3171,
-                  "end": 3214,
+                  "start": 3166,
+                  "end": 3209,
                   "loc": {
                     "start": {
-                      "line": 87,
+                      "line": 84,
                       "column": 51
                     },
                     "end": {
-                      "line": 89,
+                      "line": 86,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ThrowStatement",
-                      "start": 3177,
-                      "end": 3210,
+                      "start": 3172,
+                      "end": 3205,
                       "loc": {
                         "start": {
-                          "line": 88,
+                          "line": 85,
                           "column": 4
                         },
                         "end": {
-                          "line": 88,
+                          "line": 85,
                           "column": 37
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 3183,
-                        "end": 3209,
+                        "start": 3178,
+                        "end": 3204,
                         "loc": {
                           "start": {
-                            "line": 88,
+                            "line": 85,
                             "column": 10
                           },
                           "end": {
-                            "line": 88,
+                            "line": 85,
                             "column": 36
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 3187,
-                          "end": 3192,
+                          "start": 3182,
+                          "end": 3187,
                           "loc": {
                             "start": {
-                              "line": 88,
+                              "line": 85,
                               "column": 14
                             },
                             "end": {
-                              "line": 88,
+                              "line": 85,
                               "column": 19
                             }
                           },
@@ -1250,15 +1250,15 @@
                         "arguments": [
                           {
                             "type": "Literal",
-                            "start": 3193,
-                            "end": 3208,
+                            "start": 3188,
+                            "end": 3203,
                             "loc": {
                               "start": {
-                                "line": 88,
+                                "line": 85,
                                 "column": 20
                               },
                               "end": {
-                                "line": 88,
+                                "line": 85,
                                 "column": 35
                               }
                             },
@@ -1275,52 +1275,52 @@
               "leadingComments": [
                 {
                   "type": "Block",
-                  "value": "*\n   * Determines whether a file should be compiled\n   *    \n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {bool}        True if you are able to compile this file.\n   *\n   * @abstract\n   ",
-                  "start": 761,
-                  "end": 1225,
+                  "value": "*\n   * Determines whether a file should be compiled\n   *    \n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {bool}        True if you are able to compile this file.\n   *\n   * @abstract\n   ",
+                  "start": 756,
+                  "end": 1220,
                   "loc": {
                     "start": {
-                      "line": 31,
+                      "line": 28,
                       "column": 2
                     },
                     "end": {
-                      "line": 41,
+                      "line": 38,
                       "column": 5
                     }
                   },
                   "range": [
-                    761,
-                    1225
+                    756,
+                    1220
                   ]
                 }
               ]
             },
             {
               "type": "MethodDefinition",
-              "start": 3218,
-              "end": 3328,
+              "start": 3213,
+              "end": 3323,
               "loc": {
                 "start": {
-                  "line": 91,
+                  "line": 88,
                   "column": 2
                 },
                 "end": {
-                  "line": 93,
+                  "line": 90,
                   "column": 3
                 }
               },
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 3218,
-                "end": 3245,
+                "start": 3213,
+                "end": 3240,
                 "loc": {
                   "start": {
-                    "line": 91,
+                    "line": 88,
                     "column": 2
                   },
                   "end": {
-                    "line": 91,
+                    "line": 88,
                     "column": 29
                   }
                 },
@@ -1330,15 +1330,15 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 3245,
-                "end": 3328,
+                "start": 3240,
+                "end": 3323,
                 "loc": {
                   "start": {
-                    "line": 91,
+                    "line": 88,
                     "column": 29
                   },
                   "end": {
-                    "line": 93,
+                    "line": 90,
                     "column": 3
                   }
                 },
@@ -1349,15 +1349,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 3246,
-                    "end": 3256,
+                    "start": 3241,
+                    "end": 3251,
                     "loc": {
                       "start": {
-                        "line": 91,
+                        "line": 88,
                         "column": 30
                       },
                       "end": {
-                        "line": 91,
+                        "line": 88,
                         "column": 40
                       }
                     },
@@ -1365,15 +1365,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 3258,
-                    "end": 3266,
+                    "start": 3253,
+                    "end": 3261,
                     "loc": {
                       "start": {
-                        "line": 91,
+                        "line": 88,
                         "column": 42
                       },
                       "end": {
-                        "line": 91,
+                        "line": 88,
                         "column": 50
                       }
                     },
@@ -1381,15 +1381,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 3268,
-                    "end": 3283,
+                    "start": 3263,
+                    "end": 3278,
                     "loc": {
                       "start": {
-                        "line": 91,
+                        "line": 88,
                         "column": 52
                       },
                       "end": {
-                        "line": 91,
+                        "line": 88,
                         "column": 67
                       }
                     },
@@ -1398,58 +1398,58 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3285,
-                  "end": 3328,
+                  "start": 3280,
+                  "end": 3323,
                   "loc": {
                     "start": {
-                      "line": 91,
+                      "line": 88,
                       "column": 69
                     },
                     "end": {
-                      "line": 93,
+                      "line": 90,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ThrowStatement",
-                      "start": 3291,
-                      "end": 3324,
+                      "start": 3286,
+                      "end": 3319,
                       "loc": {
                         "start": {
-                          "line": 92,
+                          "line": 89,
                           "column": 4
                         },
                         "end": {
-                          "line": 92,
+                          "line": 89,
                           "column": 37
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 3297,
-                        "end": 3323,
+                        "start": 3292,
+                        "end": 3318,
                         "loc": {
                           "start": {
-                            "line": 92,
+                            "line": 89,
                             "column": 10
                           },
                           "end": {
-                            "line": 92,
+                            "line": 89,
                             "column": 36
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 3301,
-                          "end": 3306,
+                          "start": 3296,
+                          "end": 3301,
                           "loc": {
                             "start": {
-                              "line": 92,
+                              "line": 89,
                               "column": 14
                             },
                             "end": {
-                              "line": 92,
+                              "line": 89,
                               "column": 19
                             }
                           },
@@ -1458,15 +1458,15 @@
                         "arguments": [
                           {
                             "type": "Literal",
-                            "start": 3307,
-                            "end": 3322,
+                            "start": 3302,
+                            "end": 3317,
                             "loc": {
                               "start": {
-                                "line": 92,
+                                "line": 89,
                                 "column": 20
                               },
                               "end": {
-                                "line": 92,
+                                "line": 89,
                                 "column": 35
                               }
                             },
@@ -1483,52 +1483,52 @@
               "leadingComments": [
                 {
                   "type": "Block",
-                  "value": "*  \n   * Returns the dependent files of this file. This is used for languages such\n   * as LESS which allow you to import / reference other related files. In future\n   * versions of electron-compile, we will use this information to invalidate\n   * all of the parent files if a child file changes.\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {string[]}    An array of dependent file paths, or an empty\n   *                                array if there are no dependent files. \n   *\n   * @abstract\n   ",
-                  "start": 1332,
-                  "end": 2181,
+                  "value": "*  \n   * Returns the dependent files of this file. This is used for languages such\n   * as LESS which allow you to import / reference other related files. In future\n   * versions of electron-compile, we will use this information to invalidate\n   * all of the parent files if a child file changes.\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {string[]}    An array of dependent file paths, or an empty\n   *                                array if there are no dependent files. \n   *\n   * @abstract\n   ",
+                  "start": 1327,
+                  "end": 2176,
                   "loc": {
                     "start": {
-                      "line": 47,
+                      "line": 44,
                       "column": 2
                     },
                     "end": {
-                      "line": 62,
+                      "line": 59,
                       "column": 5
                     }
                   },
                   "range": [
-                    1332,
-                    2181
+                    1327,
+                    2176
                   ]
                 }
               ]
             },
             {
               "type": "MethodDefinition",
-              "start": 3332,
-              "end": 3426,
+              "start": 3327,
+              "end": 3421,
               "loc": {
                 "start": {
-                  "line": 95,
+                  "line": 92,
                   "column": 2
                 },
                 "end": {
-                  "line": 97,
+                  "line": 94,
                   "column": 3
                 }
               },
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 3332,
-                "end": 3343,
+                "start": 3327,
+                "end": 3338,
                 "loc": {
                   "start": {
-                    "line": 95,
+                    "line": 92,
                     "column": 2
                   },
                   "end": {
-                    "line": 95,
+                    "line": 92,
                     "column": 13
                   }
                 },
@@ -1538,15 +1538,15 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 3343,
-                "end": 3426,
+                "start": 3338,
+                "end": 3421,
                 "loc": {
                   "start": {
-                    "line": 95,
+                    "line": 92,
                     "column": 13
                   },
                   "end": {
-                    "line": 97,
+                    "line": 94,
                     "column": 3
                   }
                 },
@@ -1557,15 +1557,15 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 3344,
-                    "end": 3354,
+                    "start": 3339,
+                    "end": 3349,
                     "loc": {
                       "start": {
-                        "line": 95,
+                        "line": 92,
                         "column": 14
                       },
                       "end": {
-                        "line": 95,
+                        "line": 92,
                         "column": 24
                       }
                     },
@@ -1573,15 +1573,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 3356,
-                    "end": 3364,
+                    "start": 3351,
+                    "end": 3359,
                     "loc": {
                       "start": {
-                        "line": 95,
+                        "line": 92,
                         "column": 26
                       },
                       "end": {
-                        "line": 95,
+                        "line": 92,
                         "column": 34
                       }
                     },
@@ -1589,15 +1589,15 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 3366,
-                    "end": 3381,
+                    "start": 3361,
+                    "end": 3376,
                     "loc": {
                       "start": {
-                        "line": 95,
+                        "line": 92,
                         "column": 36
                       },
                       "end": {
-                        "line": 95,
+                        "line": 92,
                         "column": 51
                       }
                     },
@@ -1606,58 +1606,58 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3383,
-                  "end": 3426,
+                  "start": 3378,
+                  "end": 3421,
                   "loc": {
                     "start": {
-                      "line": 95,
+                      "line": 92,
                       "column": 53
                     },
                     "end": {
-                      "line": 97,
+                      "line": 94,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ThrowStatement",
-                      "start": 3389,
-                      "end": 3422,
+                      "start": 3384,
+                      "end": 3417,
                       "loc": {
                         "start": {
-                          "line": 96,
+                          "line": 93,
                           "column": 4
                         },
                         "end": {
-                          "line": 96,
+                          "line": 93,
                           "column": 37
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 3395,
-                        "end": 3421,
+                        "start": 3390,
+                        "end": 3416,
                         "loc": {
                           "start": {
-                            "line": 96,
+                            "line": 93,
                             "column": 10
                           },
                           "end": {
-                            "line": 96,
+                            "line": 93,
                             "column": 36
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 3399,
-                          "end": 3404,
+                          "start": 3394,
+                          "end": 3399,
                           "loc": {
                             "start": {
-                              "line": 96,
+                              "line": 93,
                               "column": 14
                             },
                             "end": {
-                              "line": 96,
+                              "line": 93,
                               "column": 19
                             }
                           },
@@ -1666,15 +1666,15 @@
                         "arguments": [
                           {
                             "type": "Literal",
-                            "start": 3405,
-                            "end": 3420,
+                            "start": 3400,
+                            "end": 3415,
                             "loc": {
                               "start": {
-                                "line": 96,
+                                "line": 93,
                                 "column": 20
                               },
                               "end": {
-                                "line": 96,
+                                "line": 93,
                                 "column": 35
                               }
                             },
@@ -1694,73 +1694,73 @@
                 {
                   "type": "Block",
                   "value": "*\n   * Returns a version number representing the version of the underlying \n   * compiler library. When this number changes, electron-compile knows\n   * to throw all away its generated code.\n   *    \n   * @return {string}  A version number. Note that this string isn't \n   *                   parsed in any way, just compared to the previous\n   *                   one for equality.\n   ",
-                  "start": 3430,
-                  "end": 3820,
+                  "start": 3425,
+                  "end": 3815,
                   "loc": {
                     "start": {
-                      "line": 99,
+                      "line": 96,
                       "column": 2
                     },
                     "end": {
-                      "line": 107,
+                      "line": 104,
                       "column": 5
                     }
                   },
                   "range": [
-                    3430,
-                    3820
+                    3425,
+                    3815
                   ]
                 }
               ],
               "leadingComments": [
                 {
                   "type": "Block",
-                  "value": "*  \n   * Compiles the file\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName      The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Object}      An object representing the compiled result\n   * @property {string} code        The compiled code\n   * @property {string} mimeType    The MIME type of the compiled result, which \n   *                                should exist in the mime-types database.\n   *\n   * @abstract\n   ",
-                  "start": 2306,
-                  "end": 3016,
+                  "value": "*  \n   * Compiles the file\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName      The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {object}      An object representing the compiled result\n   * @property {string} code        The compiled code\n   * @property {string} mimeType    The MIME type of the compiled result, which \n   *                                should exist in the mime-types database.\n   *\n   * @abstract\n   ",
+                  "start": 2301,
+                  "end": 3011,
                   "loc": {
                     "start": {
-                      "line": 68,
+                      "line": 65,
                       "column": 2
                     },
                     "end": {
-                      "line": 82,
+                      "line": 79,
                       "column": 5
                     }
                   },
                   "range": [
-                    2306,
-                    3016
+                    2301,
+                    3011
                   ]
                 }
               ]
             },
             {
               "type": "MethodDefinition",
-              "start": 3826,
-              "end": 3890,
+              "start": 3821,
+              "end": 3885,
               "loc": {
                 "start": {
-                  "line": 108,
+                  "line": 105,
                   "column": 2
                 },
                 "end": {
-                  "line": 110,
+                  "line": 107,
                   "column": 3
                 }
               },
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 3826,
-                "end": 3844,
+                "start": 3821,
+                "end": 3839,
                 "loc": {
                   "start": {
-                    "line": 108,
+                    "line": 105,
                     "column": 2
                   },
                   "end": {
-                    "line": 108,
+                    "line": 105,
                     "column": 20
                   }
                 },
@@ -1771,15 +1771,15 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 3844,
-                "end": 3890,
+                "start": 3839,
+                "end": 3885,
                 "loc": {
                   "start": {
-                    "line": 108,
+                    "line": 105,
                     "column": 20
                   },
                   "end": {
-                    "line": 110,
+                    "line": 107,
                     "column": 3
                   }
                 },
@@ -1790,58 +1790,58 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 3847,
-                  "end": 3890,
+                  "start": 3842,
+                  "end": 3885,
                   "loc": {
                     "start": {
-                      "line": 108,
+                      "line": 105,
                       "column": 23
                     },
                     "end": {
-                      "line": 110,
+                      "line": 107,
                       "column": 3
                     }
                   },
                   "body": [
                     {
                       "type": "ThrowStatement",
-                      "start": 3853,
-                      "end": 3886,
+                      "start": 3848,
+                      "end": 3881,
                       "loc": {
                         "start": {
-                          "line": 109,
+                          "line": 106,
                           "column": 4
                         },
                         "end": {
-                          "line": 109,
+                          "line": 106,
                           "column": 37
                         }
                       },
                       "argument": {
                         "type": "NewExpression",
-                        "start": 3859,
-                        "end": 3885,
+                        "start": 3854,
+                        "end": 3880,
                         "loc": {
                           "start": {
-                            "line": 109,
+                            "line": 106,
                             "column": 10
                           },
                           "end": {
-                            "line": 109,
+                            "line": 106,
                             "column": 36
                           }
                         },
                         "callee": {
                           "type": "Identifier",
-                          "start": 3863,
-                          "end": 3868,
+                          "start": 3858,
+                          "end": 3863,
                           "loc": {
                             "start": {
-                              "line": 109,
+                              "line": 106,
                               "column": 14
                             },
                             "end": {
-                              "line": 109,
+                              "line": 106,
                               "column": 19
                             }
                           },
@@ -1850,15 +1850,15 @@
                         "arguments": [
                           {
                             "type": "Literal",
-                            "start": 3869,
-                            "end": 3884,
+                            "start": 3864,
+                            "end": 3879,
                             "loc": {
                               "start": {
-                                "line": 109,
+                                "line": 106,
                                 "column": 20
                               },
                               "end": {
-                                "line": 109,
+                                "line": 106,
                                 "column": 35
                               }
                             },
@@ -1876,21 +1876,21 @@
                 {
                   "type": "Block",
                   "value": "*\n   * Returns a version number representing the version of the underlying \n   * compiler library. When this number changes, electron-compile knows\n   * to throw all away its generated code.\n   *    \n   * @return {string}  A version number. Note that this string isn't \n   *                   parsed in any way, just compared to the previous\n   *                   one for equality.\n   ",
-                  "start": 3430,
-                  "end": 3820,
+                  "start": 3425,
+                  "end": 3815,
                   "loc": {
                     "start": {
-                      "line": 99,
+                      "line": 96,
                       "column": 2
                     },
                     "end": {
-                      "line": 107,
+                      "line": 104,
                       "column": 5
                     }
                   },
                   "range": [
-                    3430,
-                    3820
+                    3425,
+                    3815
                   ]
                 }
               ]
@@ -1902,33 +1902,33 @@
           {
             "type": "Block",
             "value": "*\n * This class is the base interface for compilers that are used by \n * electron-compile. If your compiler library only supports a \n * synchronous API, use SimpleCompilerBase instead.\n *\n * @interface\n ",
-            "start": 2,
-            "end": 209,
+            "start": 0,
+            "end": 207,
             "loc": {
               "start": {
-                "line": 3,
+                "line": 1,
                 "column": 0
               },
               "end": {
-                "line": 9,
+                "line": 7,
                 "column": 3
               }
             },
             "range": [
-              2,
-              209
+              0,
+              207
             ]
           }
         ],
         "trailingComments": [
           {
             "type": "Block",
-            "value": "*\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n * \n * @abstract\n ",
-            "start": 3895,
-            "end": 4088,
+            "value": "*\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n *\n * To use it, implement the compile method, the getCompilerVersion method, \n * and the getInputMimeTypes static method. \n * \n * @abstract\n ",
+            "start": 3890,
+            "end": 4207,
             "loc": {
               "start": {
-                "line": 114,
+                "line": 111,
                 "column": 0
               },
               "end": {
@@ -1937,8 +1937,8 @@
               }
             },
             "range": [
-              3895,
-              4088
+              3890,
+              4207
             ]
           }
         ]
@@ -1949,33 +1949,33 @@
         {
           "type": "Block",
           "value": "*\n * This class is the base interface for compilers that are used by \n * electron-compile. If your compiler library only supports a \n * synchronous API, use SimpleCompilerBase instead.\n *\n * @interface\n ",
-          "start": 2,
-          "end": 209,
+          "start": 0,
+          "end": 207,
           "loc": {
             "start": {
-              "line": 3,
+              "line": 1,
               "column": 0
             },
             "end": {
-              "line": 9,
+              "line": 7,
               "column": 3
             }
           },
           "range": [
-            2,
-            209
+            0,
+            207
           ]
         }
       ],
       "trailingComments": [
         {
           "type": "Block",
-          "value": "*\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n * \n * @abstract\n ",
-          "start": 3895,
-          "end": 4088,
+          "value": "*\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n *\n * To use it, implement the compile method, the getCompilerVersion method, \n * and the getInputMimeTypes static method. \n * \n * @abstract\n ",
+          "start": 3890,
+          "end": 4207,
           "loc": {
             "start": {
-              "line": 114,
+              "line": 111,
               "column": 0
             },
             "end": {
@@ -1984,16 +1984,16 @@
             }
           },
           "range": [
-            3895,
-            4088
+            3890,
+            4207
           ]
         }
       ]
     },
     {
       "type": "ExportNamedDeclaration",
-      "start": 4090,
-      "end": 4647,
+      "start": 4209,
+      "end": 4766,
       "loc": {
         "start": {
           "line": 121,
@@ -2006,8 +2006,8 @@
       },
       "declaration": {
         "type": "ClassDeclaration",
-        "start": 4097,
-        "end": 4647,
+        "start": 4216,
+        "end": 4766,
         "loc": {
           "start": {
             "line": 121,
@@ -2020,8 +2020,8 @@
         },
         "id": {
           "type": "Identifier",
-          "start": 4103,
-          "end": 4121,
+          "start": 4222,
+          "end": 4240,
           "loc": {
             "start": {
               "line": 121,
@@ -2037,8 +2037,8 @@
         },
         "superClass": {
           "type": "Identifier",
-          "start": 4130,
-          "end": 4142,
+          "start": 4249,
+          "end": 4261,
           "loc": {
             "start": {
               "line": 121,
@@ -2053,8 +2053,8 @@
         },
         "body": {
           "type": "ClassBody",
-          "start": 4143,
-          "end": 4647,
+          "start": 4262,
+          "end": 4766,
           "loc": {
             "start": {
               "line": 121,
@@ -2068,8 +2068,8 @@
           "body": [
             {
               "type": "MethodDefinition",
-              "start": 4147,
-              "end": 4179,
+              "start": 4266,
+              "end": 4298,
               "loc": {
                 "start": {
                   "line": 122,
@@ -2083,8 +2083,8 @@
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 4147,
-                "end": 4158,
+                "start": 4266,
+                "end": 4277,
                 "loc": {
                   "start": {
                     "line": 122,
@@ -2101,8 +2101,8 @@
               "kind": "constructor",
               "value": {
                 "type": "FunctionExpression",
-                "start": 4158,
-                "end": 4179,
+                "start": 4277,
+                "end": 4298,
                 "loc": {
                   "start": {
                     "line": 122,
@@ -2120,8 +2120,8 @@
                 "params": [],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 4161,
-                  "end": 4179,
+                  "start": 4280,
+                  "end": 4298,
                   "loc": {
                     "start": {
                       "line": 122,
@@ -2135,8 +2135,8 @@
                   "body": [
                     {
                       "type": "ExpressionStatement",
-                      "start": 4167,
-                      "end": 4175,
+                      "start": 4286,
+                      "end": 4294,
                       "loc": {
                         "start": {
                           "line": 123,
@@ -2149,8 +2149,8 @@
                       },
                       "expression": {
                         "type": "CallExpression",
-                        "start": 4167,
-                        "end": 4174,
+                        "start": 4286,
+                        "end": 4293,
                         "loc": {
                           "start": {
                             "line": 123,
@@ -2163,8 +2163,8 @@
                         },
                         "callee": {
                           "type": "Super",
-                          "start": 4167,
-                          "end": 4172,
+                          "start": 4286,
+                          "end": 4291,
                           "loc": {
                             "start": {
                               "line": 123,
@@ -2185,8 +2185,8 @@
             },
             {
               "type": "MethodDefinition",
-              "start": 4183,
-              "end": 4256,
+              "start": 4302,
+              "end": 4375,
               "loc": {
                 "start": {
                   "line": 126,
@@ -2200,8 +2200,8 @@
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 4189,
-                "end": 4206,
+                "start": 4308,
+                "end": 4325,
                 "loc": {
                   "start": {
                     "line": 126,
@@ -2218,8 +2218,8 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 4206,
-                "end": 4256,
+                "start": 4325,
+                "end": 4375,
                 "loc": {
                   "start": {
                     "line": 126,
@@ -2237,8 +2237,8 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 4207,
-                    "end": 4215,
+                    "start": 4326,
+                    "end": 4334,
                     "loc": {
                       "start": {
                         "line": 126,
@@ -2253,8 +2253,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 4217,
-                    "end": 4232,
+                    "start": 4336,
+                    "end": 4351,
                     "loc": {
                       "start": {
                         "line": 126,
@@ -2270,8 +2270,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 4234,
-                  "end": 4256,
+                  "start": 4353,
+                  "end": 4375,
                   "loc": {
                     "start": {
                       "line": 126,
@@ -2285,8 +2285,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 4240,
-                      "end": 4252,
+                      "start": 4359,
+                      "end": 4371,
                       "loc": {
                         "start": {
                           "line": 127,
@@ -2299,8 +2299,8 @@
                       },
                       "argument": {
                         "type": "Literal",
-                        "start": 4247,
-                        "end": 4251,
+                        "start": 4366,
+                        "end": 4370,
                         "loc": {
                           "start": {
                             "line": 127,
@@ -2322,8 +2322,8 @@
             },
             {
               "type": "MethodDefinition",
-              "start": 4260,
-              "end": 4349,
+              "start": 4379,
+              "end": 4468,
               "loc": {
                 "start": {
                   "line": 130,
@@ -2337,8 +2337,8 @@
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 4266,
-                "end": 4289,
+                "start": 4385,
+                "end": 4408,
                 "loc": {
                   "start": {
                     "line": 130,
@@ -2355,8 +2355,8 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 4289,
-                "end": 4349,
+                "start": 4408,
+                "end": 4468,
                 "loc": {
                   "start": {
                     "line": 130,
@@ -2374,8 +2374,8 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 4290,
-                    "end": 4300,
+                    "start": 4409,
+                    "end": 4419,
                     "loc": {
                       "start": {
                         "line": 130,
@@ -2390,8 +2390,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 4302,
-                    "end": 4310,
+                    "start": 4421,
+                    "end": 4429,
                     "loc": {
                       "start": {
                         "line": 130,
@@ -2406,8 +2406,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 4312,
-                    "end": 4327,
+                    "start": 4431,
+                    "end": 4446,
                     "loc": {
                       "start": {
                         "line": 130,
@@ -2423,8 +2423,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 4329,
-                  "end": 4349,
+                  "start": 4448,
+                  "end": 4468,
                   "loc": {
                     "start": {
                       "line": 130,
@@ -2438,8 +2438,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 4335,
-                      "end": 4345,
+                      "start": 4454,
+                      "end": 4464,
                       "loc": {
                         "start": {
                           "line": 131,
@@ -2452,8 +2452,8 @@
                       },
                       "argument": {
                         "type": "ArrayExpression",
-                        "start": 4342,
-                        "end": 4344,
+                        "start": 4461,
+                        "end": 4463,
                         "loc": {
                           "start": {
                             "line": 131,
@@ -2473,8 +2473,8 @@
             },
             {
               "type": "MethodDefinition",
-              "start": 4353,
-              "end": 4479,
+              "start": 4472,
+              "end": 4598,
               "loc": {
                 "start": {
                   "line": 134,
@@ -2488,8 +2488,8 @@
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 4359,
-                "end": 4366,
+                "start": 4478,
+                "end": 4485,
                 "loc": {
                   "start": {
                     "line": 134,
@@ -2506,8 +2506,8 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 4366,
-                "end": 4479,
+                "start": 4485,
+                "end": 4598,
                 "loc": {
                   "start": {
                     "line": 134,
@@ -2525,8 +2525,8 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 4367,
-                    "end": 4377,
+                    "start": 4486,
+                    "end": 4496,
                     "loc": {
                       "start": {
                         "line": 134,
@@ -2541,8 +2541,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 4379,
-                    "end": 4387,
+                    "start": 4498,
+                    "end": 4506,
                     "loc": {
                       "start": {
                         "line": 134,
@@ -2557,8 +2557,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 4389,
-                    "end": 4404,
+                    "start": 4508,
+                    "end": 4523,
                     "loc": {
                       "start": {
                         "line": 134,
@@ -2574,8 +2574,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 4406,
-                  "end": 4479,
+                  "start": 4525,
+                  "end": 4598,
                   "loc": {
                     "start": {
                       "line": 134,
@@ -2589,8 +2589,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 4412,
-                      "end": 4475,
+                      "start": 4531,
+                      "end": 4594,
                       "loc": {
                         "start": {
                           "line": 135,
@@ -2603,8 +2603,8 @@
                       },
                       "argument": {
                         "type": "CallExpression",
-                        "start": 4419,
-                        "end": 4474,
+                        "start": 4538,
+                        "end": 4593,
                         "loc": {
                           "start": {
                             "line": 135,
@@ -2617,8 +2617,8 @@
                         },
                         "callee": {
                           "type": "MemberExpression",
-                          "start": 4419,
-                          "end": 4435,
+                          "start": 4538,
+                          "end": 4554,
                           "loc": {
                             "start": {
                               "line": 135,
@@ -2631,8 +2631,8 @@
                           },
                           "object": {
                             "type": "ThisExpression",
-                            "start": 4419,
-                            "end": 4423,
+                            "start": 4538,
+                            "end": 4542,
                             "loc": {
                               "start": {
                                 "line": 135,
@@ -2646,8 +2646,8 @@
                           },
                           "property": {
                             "type": "Identifier",
-                            "start": 4424,
-                            "end": 4435,
+                            "start": 4543,
+                            "end": 4554,
                             "loc": {
                               "start": {
                                 "line": 135,
@@ -2665,8 +2665,8 @@
                         "arguments": [
                           {
                             "type": "Identifier",
-                            "start": 4436,
-                            "end": 4446,
+                            "start": 4555,
+                            "end": 4565,
                             "loc": {
                               "start": {
                                 "line": 135,
@@ -2681,8 +2681,8 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 4448,
-                            "end": 4456,
+                            "start": 4567,
+                            "end": 4575,
                             "loc": {
                               "start": {
                                 "line": 135,
@@ -2697,8 +2697,8 @@
                           },
                           {
                             "type": "Identifier",
-                            "start": 4458,
-                            "end": 4473,
+                            "start": 4577,
+                            "end": 4592,
                             "loc": {
                               "start": {
                                 "line": 135,
@@ -2720,8 +2720,8 @@
             },
             {
               "type": "MethodDefinition",
-              "start": 4483,
-              "end": 4554,
+              "start": 4602,
+              "end": 4673,
               "loc": {
                 "start": {
                   "line": 138,
@@ -2735,8 +2735,8 @@
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 4483,
-                "end": 4504,
+                "start": 4602,
+                "end": 4623,
                 "loc": {
                   "start": {
                     "line": 138,
@@ -2753,8 +2753,8 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 4504,
-                "end": 4554,
+                "start": 4623,
+                "end": 4673,
                 "loc": {
                   "start": {
                     "line": 138,
@@ -2772,8 +2772,8 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 4505,
-                    "end": 4513,
+                    "start": 4624,
+                    "end": 4632,
                     "loc": {
                       "start": {
                         "line": 138,
@@ -2788,8 +2788,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 4515,
-                    "end": 4530,
+                    "start": 4634,
+                    "end": 4649,
                     "loc": {
                       "start": {
                         "line": 138,
@@ -2805,8 +2805,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 4532,
-                  "end": 4554,
+                  "start": 4651,
+                  "end": 4673,
                   "loc": {
                     "start": {
                       "line": 138,
@@ -2820,8 +2820,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 4538,
-                      "end": 4550,
+                      "start": 4657,
+                      "end": 4669,
                       "loc": {
                         "start": {
                           "line": 139,
@@ -2834,8 +2834,8 @@
                       },
                       "argument": {
                         "type": "Literal",
-                        "start": 4545,
-                        "end": 4549,
+                        "start": 4664,
+                        "end": 4668,
                         "loc": {
                           "start": {
                             "line": 139,
@@ -2857,8 +2857,8 @@
             },
             {
               "type": "MethodDefinition",
-              "start": 4558,
-              "end": 4645,
+              "start": 4677,
+              "end": 4764,
               "loc": {
                 "start": {
                   "line": 142,
@@ -2872,8 +2872,8 @@
               "computed": false,
               "key": {
                 "type": "Identifier",
-                "start": 4558,
-                "end": 4585,
+                "start": 4677,
+                "end": 4704,
                 "loc": {
                   "start": {
                     "line": 142,
@@ -2890,8 +2890,8 @@
               "kind": "method",
               "value": {
                 "type": "FunctionExpression",
-                "start": 4585,
-                "end": 4645,
+                "start": 4704,
+                "end": 4764,
                 "loc": {
                   "start": {
                     "line": 142,
@@ -2909,8 +2909,8 @@
                 "params": [
                   {
                     "type": "Identifier",
-                    "start": 4586,
-                    "end": 4596,
+                    "start": 4705,
+                    "end": 4715,
                     "loc": {
                       "start": {
                         "line": 142,
@@ -2925,8 +2925,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 4598,
-                    "end": 4606,
+                    "start": 4717,
+                    "end": 4725,
                     "loc": {
                       "start": {
                         "line": 142,
@@ -2941,8 +2941,8 @@
                   },
                   {
                     "type": "Identifier",
-                    "start": 4608,
-                    "end": 4623,
+                    "start": 4727,
+                    "end": 4742,
                     "loc": {
                       "start": {
                         "line": 142,
@@ -2958,8 +2958,8 @@
                 ],
                 "body": {
                   "type": "BlockStatement",
-                  "start": 4625,
-                  "end": 4645,
+                  "start": 4744,
+                  "end": 4764,
                   "loc": {
                     "start": {
                       "line": 142,
@@ -2973,8 +2973,8 @@
                   "body": [
                     {
                       "type": "ReturnStatement",
-                      "start": 4631,
-                      "end": 4641,
+                      "start": 4750,
+                      "end": 4760,
                       "loc": {
                         "start": {
                           "line": 143,
@@ -2987,8 +2987,8 @@
                       },
                       "argument": {
                         "type": "ArrayExpression",
-                        "start": 4638,
-                        "end": 4640,
+                        "start": 4757,
+                        "end": 4759,
                         "loc": {
                           "start": {
                             "line": 143,
@@ -3011,12 +3011,12 @@
         "leadingComments": [
           {
             "type": "Block",
-            "value": "*\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n * \n * @abstract\n ",
-            "start": 3895,
-            "end": 4088,
+            "value": "*\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n *\n * To use it, implement the compile method, the getCompilerVersion method, \n * and the getInputMimeTypes static method. \n * \n * @abstract\n ",
+            "start": 3890,
+            "end": 4207,
             "loc": {
               "start": {
-                "line": 114,
+                "line": 111,
                 "column": 0
               },
               "end": {
@@ -3025,8 +3025,8 @@
               }
             },
             "range": [
-              3895,
-              4088
+              3890,
+              4207
             ]
           }
         ],
@@ -3037,12 +3037,12 @@
       "leadingComments": [
         {
           "type": "Block",
-          "value": "*\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n * \n * @abstract\n ",
-          "start": 3895,
-          "end": 4088,
+          "value": "*\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n *\n * To use it, implement the compile method, the getCompilerVersion method, \n * and the getInputMimeTypes static method. \n * \n * @abstract\n ",
+          "start": 3890,
+          "end": 4207,
           "loc": {
             "start": {
-              "line": 114,
+              "line": 111,
               "column": 0
             },
             "end": {
@@ -3051,8 +3051,8 @@
             }
           },
           "range": [
-            3895,
-            4088
+            3890,
+            4207
           ]
         }
       ]

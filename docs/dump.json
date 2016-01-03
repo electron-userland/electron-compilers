@@ -10,7 +10,7 @@
     "access": null,
     "description": null,
     "lineNumber": 1,
-    "content": "\n\n/**\n * This class is the base interface for compilers that are used by \n * electron-compile. If your compiler library only supports a \n * synchronous API, use SimpleCompilerBase instead.\n *\n * @interface\n */ \nexport class CompilerBase {\n  constructor() {\n    this.compilerOptions = {};\n  }\n  \n  \n  /**  \n   * This method describes the MIME types that your compiler supports as input. \n   * Many precompiled file types don't have a specific MIME type, so if it's not\n   * recognized by the mime-types package, you need to patch rig-mime-types in\n   * electron-compile.\n   *\n   * @return {string[]}  An array of MIME types that this compiler can compile.\n   *\n   * @abstract\n   */   \n  static getInputMimeTypes() {\n    throw new Error(\"Implement me!\");\n  }\n\n\n  /**\n   * Determines whether a file should be compiled\n   *    \n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<bool>}        True if you are able to compile this file.\n   *\n   * @abstract\n   */   \n  async shouldCompileFile(fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  \n  /**  \n   * Returns the dependent files of this file. This is used for languages such\n   * as LESS which allow you to import / reference other related files. In future\n   * versions of electron-compile, we will use this information to invalidate\n   * all of the parent files if a child file changes.\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<string[]>}    An array of dependent file paths, or an empty\n   *                                array if there are no dependent files. \n   *\n   * @abstract\n   */   \n  async determineDependentFiles(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  \n  /**  \n   * Compiles the file\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName      The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<Object>}      An object representing the compiled result\n   * @property {string} code        The compiled code\n   * @property {string} mimeType    The MIME type of the compiled result, which \n   *                                should exist in the mime-types database.\n   *\n   * @abstract\n   */   \n  async compile(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  shouldCompileFileSync(fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  determineDependentFilesSync(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  compileSync(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  /**\n   * Returns a version number representing the version of the underlying \n   * compiler library. When this number changes, electron-compile knows\n   * to throw all away its generated code.\n   *    \n   * @return {string}  A version number. Note that this string isn't \n   *                   parsed in any way, just compared to the previous\n   *                   one for equality.\n   */   \n  getCompilerVersion() {\n    throw new Error(\"Implement me!\");\n  }\n}\n\n\n/**\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n * \n * @abstract\n */ \nexport class SimpleCompilerBase extends CompilerBase {\n  constructor() {\n    super();\n  }\n\n  async shouldCompileFile(fileName, compilerContext) {\n    return true;\n  }\n\n  async determineDependentFiles(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n\n  async compile(sourceCode, filePath, compilerContext) {\n    return this.compileSync(sourceCode, filePath, compilerContext);\n  }\n\n  shouldCompileFileSync(fileName, compilerContext) {\n    return true;\n  }\n\n  determineDependentFilesSync(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n}\n"
+    "content": "/**\n * This class is the base interface for compilers that are used by \n * electron-compile. If your compiler library only supports a \n * synchronous API, use SimpleCompilerBase instead.\n *\n * @interface\n */ \nexport class CompilerBase {\n  constructor() {\n    this.compilerOptions = {};\n  }\n  \n  /**  \n   * This method describes the MIME types that your compiler supports as input. \n   * Many precompiled file types don't have a specific MIME type, so if it's not\n   * recognized by the mime-types package, you need to patch rig-mime-types in\n   * electron-compile.\n   *\n   * @return {string[]}  An array of MIME types that this compiler can compile.\n   *\n   * @abstract\n   */   \n  static getInputMimeTypes() {\n    throw new Error(\"Implement me!\");\n  }\n\n\n  /**\n   * Determines whether a file should be compiled\n   *    \n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<bool>}        True if you are able to compile this file.\n   *\n   * @abstract\n   */   \n  async shouldCompileFile(fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  \n  /**  \n   * Returns the dependent files of this file. This is used for languages such\n   * as LESS which allow you to import / reference other related files. In future\n   * versions of electron-compile, we will use this information to invalidate\n   * all of the parent files if a child file changes.\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<string[]>}    An array of dependent file paths, or an empty\n   *                                array if there are no dependent files. \n   *\n   * @abstract\n   */   \n  async determineDependentFiles(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  \n  /**  \n   * Compiles the file\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName      The full path of a file to compile.\n   * @param  {object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<object>}      An object representing the compiled result\n   * @property {string} code        The compiled code\n   * @property {string} mimeType    The MIME type of the compiled result, which \n   *                                should exist in the mime-types database.\n   *\n   * @abstract\n   */   \n  async compile(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  shouldCompileFileSync(fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  determineDependentFilesSync(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  compileSync(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  /**\n   * Returns a version number representing the version of the underlying \n   * compiler library. When this number changes, electron-compile knows\n   * to throw all away its generated code.\n   *    \n   * @return {string}  A version number. Note that this string isn't \n   *                   parsed in any way, just compared to the previous\n   *                   one for equality.\n   */   \n  getCompilerVersion() {\n    throw new Error(\"Implement me!\");\n  }\n}\n\n\n/**\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n *\n * To use it, implement the compile method, the getCompilerVersion method, \n * and the getInputMimeTypes static method. \n * \n * @abstract\n */ \nexport class SimpleCompilerBase extends CompilerBase {\n  constructor() {\n    super();\n  }\n\n  async shouldCompileFile(fileName, compilerContext) {\n    return true;\n  }\n\n  async determineDependentFiles(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n\n  async compile(sourceCode, filePath, compilerContext) {\n    return this.compileSync(sourceCode, filePath, compilerContext);\n  }\n\n  shouldCompileFileSync(fileName, compilerContext) {\n    return true;\n  }\n\n  determineDependentFilesSync(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n}\n"
   },
   {
     "__docId__": 1,
@@ -25,7 +25,7 @@
     "importPath": "electron-compilers/src/compiler-base.js",
     "importStyle": "{CompilerBase}",
     "description": "This class is the base interface for compilers that are used by \nelectron-compile. If your compiler library only supports a \nsynchronous API, use SimpleCompilerBase instead.",
-    "lineNumber": 10,
+    "lineNumber": 8,
     "interface": true
   },
   {
@@ -38,7 +38,7 @@
     "longname": "src/compiler-base.js~CompilerBase#constructor",
     "access": null,
     "description": null,
-    "lineNumber": 11,
+    "lineNumber": 9,
     "undocument": true,
     "params": [],
     "generator": false
@@ -53,7 +53,7 @@
     "longname": "src/compiler-base.js~CompilerBase#compilerOptions",
     "access": null,
     "description": null,
-    "lineNumber": 12,
+    "lineNumber": 10,
     "undocument": true,
     "type": {
       "types": [
@@ -71,7 +71,7 @@
     "longname": "src/compiler-base.js~CompilerBase.getInputMimeTypes",
     "access": null,
     "description": " \nThis method describes the MIME types that your compiler supports as input. \nMany precompiled file types don't have a specific MIME type, so if it's not\nrecognized by the mime-types package, you need to patch rig-mime-types in\nelectron-compile.",
-    "lineNumber": 26,
+    "lineNumber": 23,
     "params": [],
     "return": {
       "nullable": null,
@@ -94,7 +94,7 @@
     "longname": "src/compiler-base.js~CompilerBase#shouldCompileFile",
     "access": null,
     "description": "Determines whether a file should be compiled\n   ",
-    "lineNumber": 42,
+    "lineNumber": 39,
     "params": [
       {
         "nullable": null,
@@ -109,7 +109,7 @@
       {
         "nullable": null,
         "types": [
-          "Object"
+          "object"
         ],
         "spread": false,
         "optional": false,
@@ -138,7 +138,7 @@
     "longname": "src/compiler-base.js~CompilerBase#determineDependentFiles",
     "access": null,
     "description": " \nReturns the dependent files of this file. This is used for languages such\nas LESS which allow you to import / reference other related files. In future\nversions of electron-compile, we will use this information to invalidate\nall of the parent files if a child file changes.\n   ",
-    "lineNumber": 63,
+    "lineNumber": 60,
     "params": [
       {
         "nullable": null,
@@ -163,7 +163,7 @@
       {
         "nullable": null,
         "types": [
-          "Object"
+          "object"
         ],
         "spread": false,
         "optional": false,
@@ -192,7 +192,7 @@
     "longname": "src/compiler-base.js~CompilerBase#compile",
     "access": null,
     "description": " \nCompiles the file\n   ",
-    "lineNumber": 83,
+    "lineNumber": 80,
     "params": [
       {
         "nullable": null,
@@ -217,7 +217,7 @@
       {
         "nullable": null,
         "types": [
-          "Object"
+          "object"
         ],
         "spread": false,
         "optional": false,
@@ -250,7 +250,7 @@
     "return": {
       "nullable": null,
       "types": [
-        "Object"
+        "object"
       ],
       "spread": false,
       "description": "An object representing the compiled result"
@@ -268,7 +268,7 @@
     "longname": "src/compiler-base.js~CompilerBase#shouldCompileFileSync",
     "access": null,
     "description": "Determines whether a file should be compiled\n   ",
-    "lineNumber": 87,
+    "lineNumber": 84,
     "params": [
       {
         "nullable": null,
@@ -283,7 +283,7 @@
       {
         "nullable": null,
         "types": [
-          "Object"
+          "object"
         ],
         "spread": false,
         "optional": false,
@@ -312,7 +312,7 @@
     "longname": "src/compiler-base.js~CompilerBase#determineDependentFilesSync",
     "access": null,
     "description": " \nReturns the dependent files of this file. This is used for languages such\nas LESS which allow you to import / reference other related files. In future\nversions of electron-compile, we will use this information to invalidate\nall of the parent files if a child file changes.\n   ",
-    "lineNumber": 91,
+    "lineNumber": 88,
     "params": [
       {
         "nullable": null,
@@ -337,7 +337,7 @@
       {
         "nullable": null,
         "types": [
-          "Object"
+          "object"
         ],
         "spread": false,
         "optional": false,
@@ -366,7 +366,7 @@
     "longname": "src/compiler-base.js~CompilerBase#compileSync",
     "access": null,
     "description": " \nCompiles the file\n   ",
-    "lineNumber": 95,
+    "lineNumber": 92,
     "params": [
       {
         "nullable": null,
@@ -391,7 +391,7 @@
       {
         "nullable": null,
         "types": [
-          "Object"
+          "object"
         ],
         "spread": false,
         "optional": false,
@@ -424,7 +424,7 @@
     "return": {
       "nullable": null,
       "types": [
-        "Object"
+        "object"
       ],
       "spread": false,
       "description": "An object representing the compiled result"
@@ -442,7 +442,7 @@
     "longname": "src/compiler-base.js~CompilerBase#getCompilerVersion",
     "access": null,
     "description": "Returns a version number representing the version of the underlying \ncompiler library. When this number changes, electron-compile knows\nto throw all away its generated code.\n   ",
-    "lineNumber": 108,
+    "lineNumber": 105,
     "params": [],
     "return": {
       "nullable": null,
@@ -466,7 +466,7 @@
     "export": true,
     "importPath": "electron-compilers/src/compiler-base.js",
     "importStyle": "{SimpleCompilerBase}",
-    "description": "This class implements all of the async methods of CompilerBase by just \ncalling the sync version. Use it to save some time when implementing \nsimple compilers.",
+    "description": "This class implements all of the async methods of CompilerBase by just \ncalling the sync version. Use it to save some time when implementing \nsimple compilers.\n\nTo use it, implement the compile method, the getCompilerVersion method, \nand the getInputMimeTypes static method. ",
     "lineNumber": 121,
     "abstract": true,
     "interface": false,
