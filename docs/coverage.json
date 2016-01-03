@@ -1,0 +1,21 @@
+{
+  "coverage": "55.55%",
+  "expectCount": 18,
+  "actualCount": 10,
+  "files": {
+    "src/compiler-base.js": {
+      "expectCount": 18,
+      "actualCount": 10,
+      "undocumentLines": [
+        134,
+        12,
+        11,
+        122,
+        130,
+        142,
+        126,
+        138
+      ]
+    }
+  }
+}

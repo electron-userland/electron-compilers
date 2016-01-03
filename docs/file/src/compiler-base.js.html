@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <base data-ice="baseUrl" href="../../">
+  <title data-ice="title">src/compiler-base.js | electron-compilers API Document</title>
+  <link type="text/css" rel="stylesheet" href="css/style.css">
+  <link type="text/css" rel="stylesheet" href="css/prettify-tomorrow.css">
+  <script src="script/prettify/prettify.js"></script>
+  
+  
+  <script src="script/manual.js"></script>
+</head>
+<body class="layout-container" data-ice="rootContainer">
+
+<header>
+  <a href="./">Home</a>
+  
+  <a href="identifiers.html">Reference</a>
+  <a href="source.html">Source</a>
+  
+  <a data-ice="repoURL" href="https://github.com/paulcbetts/electron-compilers" class="repo-url-github">Repository</a>
+  <div class="search-box">
+  <span>
+    <img src="./image/search.png">
+    <span class="search-input-edge"></span><input class="search-input"><span class="search-input-edge"></span>
+  </span>
+    <ul class="search-result"></ul>
+  </div>
+</header>
+
+<nav class="navigation" data-ice="nav"><div>
+  <ul>
+    
+  <li data-ice="doc"><span data-ice="kind" class="kind-class">C</span><span data-ice="name"><span><a href="class/src/compiler-base.js~SimpleCompilerBase.html">SimpleCompilerBase</a></span></span></li>
+<li data-ice="doc"><span data-ice="kind" class="kind-interface">I</span><span data-ice="name"><span><a href="class/src/compiler-base.js~CompilerBase.html">CompilerBase</a></span></span></li>
+</ul>
+</div>
+</nav>
+
+<div class="content" data-ice="content"><h1 data-ice="title">src/compiler-base.js</h1>
+<pre class="source-code line-number raw-source-code"><code class="prettyprint linenums" data-ice="content">
+
+/**
+ * This class is the base interface for compilers that are used by 
+ * electron-compile. If your compiler library only supports a 
+ * synchronous API, use SimpleCompilerBase instead.
+ *
+ * @interface
+ */ 
+export class CompilerBase {
+  constructor() {
+    this.compilerOptions = {};
+  }
+  
+  
+  /**  
+   * This method describes the MIME types that your compiler supports as input. 
+   * Many precompiled file types don&apos;t have a specific MIME type, so if it&apos;s not
+   * recognized by the mime-types package, you need to patch rig-mime-types in
+   * electron-compile.
+   *
+   * @return {string[]}  An array of MIME types that this compiler can compile.
+   *
+   * @abstract
+   */   
+  static getInputMimeTypes() {
+    throw new Error(&quot;Implement me!&quot;);
+  }
+
+
+  /**
+   * Determines whether a file should be compiled
+   *    
+   * @param  {string} fileName        The full path of a file to compile.
+   * @param  {Object} compilerContext An object that compilers can add extra
+                                    information to as part of a job - the caller
+                                    won&apos;t do anything with this.
+   * @return {Promise&lt;bool&gt;}        True if you are able to compile this file.
+   *
+   * @abstract
+   */   
+  async shouldCompileFile(fileName, compilerContext) {
+    throw new Error(&quot;Implement me!&quot;);
+  }
+
+  
+  /**  
+   * Returns the dependent files of this file. This is used for languages such
+   * as LESS which allow you to import / reference other related files. In future
+   * versions of electron-compile, we will use this information to invalidate
+   * all of the parent files if a child file changes.
+   *    
+   * @param  {string} sourceCode    The contents of filePath
+   * @param  {string} fileName        The full path of a file to compile.
+   * @param  {Object} compilerContext An object that compilers can add extra
+                                    information to as part of a job - the caller
+                                    won&apos;t do anything with this.
+   * @return {Promise&lt;string[]&gt;}    An array of dependent file paths, or an empty
+   *                                array if there are no dependent files. 
+   *
+   * @abstract
+   */   
+  async determineDependentFiles(sourceCode, fileName, compilerContext) {
+    throw new Error(&quot;Implement me!&quot;);
+  }
+
+  
+  /**  
+   * Compiles the file
+   *    
+   * @param  {string} sourceCode    The contents of filePath
+   * @param  {string} fileName      The full path of a file to compile.
+   * @param  {Object} compilerContext An object that compilers can add extra
+                                    information to as part of a job - the caller
+                                    won&apos;t do anything with this.
+   * @return {Promise&lt;Object&gt;}      An object representing the compiled result
+   * @property {string} code        The compiled code
+   * @property {string} mimeType    The MIME type of the compiled result, which 
+   *                                should exist in the mime-types database.
+   *
+   * @abstract
+   */   
+  async compile(sourceCode, fileName, compilerContext) {
+    throw new Error(&quot;Implement me!&quot;);
+  }
+
+  shouldCompileFileSync(fileName, compilerContext) {
+    throw new Error(&quot;Implement me!&quot;);
+  }
+
+  determineDependentFilesSync(sourceCode, fileName, compilerContext) {
+    throw new Error(&quot;Implement me!&quot;);
+  }
+
+  compileSync(sourceCode, fileName, compilerContext) {
+    throw new Error(&quot;Implement me!&quot;);
+  }
+
+  /**
+   * Returns a version number representing the version of the underlying 
+   * compiler library. When this number changes, electron-compile knows
+   * to throw all away its generated code.
+   *    
+   * @return {string}  A version number. Note that this string isn&apos;t 
+   *                   parsed in any way, just compared to the previous
+   *                   one for equality.
+   */   
+  getCompilerVersion() {
+    throw new Error(&quot;Implement me!&quot;);
+  }
+}
+
+
+/**
+ * This class implements all of the async methods of CompilerBase by just 
+ * calling the sync version. Use it to save some time when implementing 
+ * simple compilers.
+ * 
+ * @abstract
+ */ 
+export class SimpleCompilerBase extends CompilerBase {
+  constructor() {
+    super();
+  }
+
+  async shouldCompileFile(fileName, compilerContext) {
+    return true;
+  }
+
+  async determineDependentFiles(sourceCode, filePath, compilerContext) {
+    return [];
+  }
+
+  async compile(sourceCode, filePath, compilerContext) {
+    return this.compileSync(sourceCode, filePath, compilerContext);
+  }
+
+  shouldCompileFileSync(fileName, compilerContext) {
+    return true;
+  }
+
+  determineDependentFilesSync(sourceCode, filePath, compilerContext) {
+    return [];
+  }
+}
+</code></pre>
+
+</div>
+
+<footer class="footer">
+  Generated by <a href="https://esdoc.org">ESDoc<span data-ice="esdocVersion">(0.4.3)</span></a>
+</footer>
+
+<script src="script/search_index.js"></script>
+<script src="script/search.js"></script>
+<script src="script/pretty-print.js"></script>
+<script src="script/inherited-summary.js"></script>
+<script src="script/test-summary.js"></script>
+<script src="script/inner-link.js"></script>
+<script src="script/patch-for-local.js"></script>
+</body>
+</html>

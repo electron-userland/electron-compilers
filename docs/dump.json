@@ -1,0 +1,3370 @@
+[
+  {
+    "__docId__": 0,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/compiler-base.js",
+    "memberof": null,
+    "longname": "src/compiler-base.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "\n\n/**\n * This class is the base interface for compilers that are used by \n * electron-compile. If your compiler library only supports a \n * synchronous API, use SimpleCompilerBase instead.\n *\n * @interface\n */ \nexport class CompilerBase {\n  constructor() {\n    this.compilerOptions = {};\n  }\n  \n  \n  /**  \n   * This method describes the MIME types that your compiler supports as input. \n   * Many precompiled file types don't have a specific MIME type, so if it's not\n   * recognized by the mime-types package, you need to patch rig-mime-types in\n   * electron-compile.\n   *\n   * @return {string[]}  An array of MIME types that this compiler can compile.\n   *\n   * @abstract\n   */   \n  static getInputMimeTypes() {\n    throw new Error(\"Implement me!\");\n  }\n\n\n  /**\n   * Determines whether a file should be compiled\n   *    \n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<bool>}        True if you are able to compile this file.\n   *\n   * @abstract\n   */   \n  async shouldCompileFile(fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  \n  /**  \n   * Returns the dependent files of this file. This is used for languages such\n   * as LESS which allow you to import / reference other related files. In future\n   * versions of electron-compile, we will use this information to invalidate\n   * all of the parent files if a child file changes.\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName        The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<string[]>}    An array of dependent file paths, or an empty\n   *                                array if there are no dependent files. \n   *\n   * @abstract\n   */   \n  async determineDependentFiles(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  \n  /**  \n   * Compiles the file\n   *    \n   * @param  {string} sourceCode    The contents of filePath\n   * @param  {string} fileName      The full path of a file to compile.\n   * @param  {Object} compilerContext An object that compilers can add extra\n                                    information to as part of a job - the caller\n                                    won't do anything with this.\n   * @return {Promise<Object>}      An object representing the compiled result\n   * @property {string} code        The compiled code\n   * @property {string} mimeType    The MIME type of the compiled result, which \n   *                                should exist in the mime-types database.\n   *\n   * @abstract\n   */   \n  async compile(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  shouldCompileFileSync(fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  determineDependentFilesSync(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  compileSync(sourceCode, fileName, compilerContext) {\n    throw new Error(\"Implement me!\");\n  }\n\n  /**\n   * Returns a version number representing the version of the underlying \n   * compiler library. When this number changes, electron-compile knows\n   * to throw all away its generated code.\n   *    \n   * @return {string}  A version number. Note that this string isn't \n   *                   parsed in any way, just compared to the previous\n   *                   one for equality.\n   */   \n  getCompilerVersion() {\n    throw new Error(\"Implement me!\");\n  }\n}\n\n\n/**\n * This class implements all of the async methods of CompilerBase by just \n * calling the sync version. Use it to save some time when implementing \n * simple compilers.\n * \n * @abstract\n */ \nexport class SimpleCompilerBase extends CompilerBase {\n  constructor() {\n    super();\n  }\n\n  async shouldCompileFile(fileName, compilerContext) {\n    return true;\n  }\n\n  async determineDependentFiles(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n\n  async compile(sourceCode, filePath, compilerContext) {\n    return this.compileSync(sourceCode, filePath, compilerContext);\n  }\n\n  shouldCompileFileSync(fileName, compilerContext) {\n    return true;\n  }\n\n  determineDependentFilesSync(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n}\n"
+  },
+  {
+    "__docId__": 1,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "CompilerBase",
+    "memberof": "src/compiler-base.js",
+    "longname": "src/compiler-base.js~CompilerBase",
+    "access": null,
+    "export": true,
+    "importPath": "electron-compilers/src/compiler-base.js",
+    "importStyle": "{CompilerBase}",
+    "description": "This class is the base interface for compilers that are used by \nelectron-compile. If your compiler library only supports a \nsynchronous API, use SimpleCompilerBase instead.",
+    "lineNumber": 10,
+    "interface": true
+  },
+  {
+    "__docId__": 2,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 3,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "compilerOptions",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase#compilerOptions",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 4,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "getInputMimeTypes",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase.getInputMimeTypes",
+    "access": null,
+    "description": " \nThis method describes the MIME types that your compiler supports as input. \nMany precompiled file types don't have a specific MIME type, so if it's not\nrecognized by the mime-types package, you need to patch rig-mime-types in\nelectron-compile.",
+    "lineNumber": 26,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": "An array of MIME types that this compiler can compile."
+    },
+    "abstract": true,
+    "generator": false
+  },
+  {
+    "__docId__": 5,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFile",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase#shouldCompileFile",
+    "access": null,
+    "description": "Determines whether a file should be compiled\n   ",
+    "lineNumber": 42,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fileName",
+        "description": "The full path of a file to compile."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compilerContext",
+        "description": "An object that compilers can add extra\n                                   information to as part of a job - the caller\n                                   won't do anything with this."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "bool"
+      ],
+      "spread": false,
+      "description": "True if you are able to compile this file."
+    },
+    "abstract": true,
+    "generator": false
+  },
+  {
+    "__docId__": 6,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFiles",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase#determineDependentFiles",
+    "access": null,
+    "description": " \nReturns the dependent files of this file. This is used for languages such\nas LESS which allow you to import / reference other related files. In future\nversions of electron-compile, we will use this information to invalidate\nall of the parent files if a child file changes.\n   ",
+    "lineNumber": 63,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "sourceCode",
+        "description": "The contents of filePath"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fileName",
+        "description": "The full path of a file to compile."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compilerContext",
+        "description": "An object that compilers can add extra\n                                   information to as part of a job - the caller\n                                   won't do anything with this."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": "An array of dependent file paths, or an empty\n                               array if there are no dependent files."
+    },
+    "abstract": true,
+    "generator": false
+  },
+  {
+    "__docId__": 7,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compile",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase#compile",
+    "access": null,
+    "description": " \nCompiles the file\n   ",
+    "lineNumber": 83,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "sourceCode",
+        "description": "The contents of filePath"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fileName",
+        "description": "The full path of a file to compile."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compilerContext",
+        "description": "An object that compilers can add extra\n                                   information to as part of a job - the caller\n                                   won't do anything with this."
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "code",
+        "description": "The compiled code"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "mimeType",
+        "description": "The MIME type of the compiled result, which \n                               should exist in the mime-types database."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "An object representing the compiled result"
+    },
+    "abstract": true,
+    "generator": false
+  },
+  {
+    "__docId__": 8,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFileSync",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase#shouldCompileFileSync",
+    "access": null,
+    "description": "Determines whether a file should be compiled\n   ",
+    "lineNumber": 87,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fileName",
+        "description": "The full path of a file to compile."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compilerContext",
+        "description": "An object that compilers can add extra\n                                   information to as part of a job - the caller\n                                   won't do anything with this."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "bool"
+      ],
+      "spread": false,
+      "description": "True if you are able to compile this file."
+    },
+    "abstract": true,
+    "generator": false
+  },
+  {
+    "__docId__": 9,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFilesSync",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase#determineDependentFilesSync",
+    "access": null,
+    "description": " \nReturns the dependent files of this file. This is used for languages such\nas LESS which allow you to import / reference other related files. In future\nversions of electron-compile, we will use this information to invalidate\nall of the parent files if a child file changes.\n   ",
+    "lineNumber": 91,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "sourceCode",
+        "description": "The contents of filePath"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fileName",
+        "description": "The full path of a file to compile."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compilerContext",
+        "description": "An object that compilers can add extra\n                                   information to as part of a job - the caller\n                                   won't do anything with this."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string[]"
+      ],
+      "spread": false,
+      "description": "An array of dependent file paths, or an empty\n                               array if there are no dependent files."
+    },
+    "abstract": true,
+    "generator": false
+  },
+  {
+    "__docId__": 10,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compileSync",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase#compileSync",
+    "access": null,
+    "description": " \nCompiles the file\n   ",
+    "lineNumber": 95,
+    "params": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "sourceCode",
+        "description": "The contents of filePath"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "fileName",
+        "description": "The full path of a file to compile."
+      },
+      {
+        "nullable": null,
+        "types": [
+          "Object"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "compilerContext",
+        "description": "An object that compilers can add extra\n                                   information to as part of a job - the caller\n                                   won't do anything with this."
+      }
+    ],
+    "properties": [
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "code",
+        "description": "The compiled code"
+      },
+      {
+        "nullable": null,
+        "types": [
+          "string"
+        ],
+        "spread": false,
+        "optional": false,
+        "name": "mimeType",
+        "description": "The MIME type of the compiled result, which \n                               should exist in the mime-types database."
+      }
+    ],
+    "return": {
+      "nullable": null,
+      "types": [
+        "Object"
+      ],
+      "spread": false,
+      "description": "An object representing the compiled result"
+    },
+    "abstract": true,
+    "generator": false
+  },
+  {
+    "__docId__": 11,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCompilerVersion",
+    "memberof": "src/compiler-base.js~CompilerBase",
+    "longname": "src/compiler-base.js~CompilerBase#getCompilerVersion",
+    "access": null,
+    "description": "Returns a version number representing the version of the underlying \ncompiler library. When this number changes, electron-compile knows\nto throw all away its generated code.\n   ",
+    "lineNumber": 108,
+    "params": [],
+    "return": {
+      "nullable": null,
+      "types": [
+        "string"
+      ],
+      "spread": false,
+      "description": "A version number. Note that this string isn't \n                  parsed in any way, just compared to the previous\n                  one for equality."
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 12,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "SimpleCompilerBase",
+    "memberof": "src/compiler-base.js",
+    "longname": "src/compiler-base.js~SimpleCompilerBase",
+    "access": null,
+    "export": true,
+    "importPath": "electron-compilers/src/compiler-base.js",
+    "importStyle": "{SimpleCompilerBase}",
+    "description": "This class implements all of the async methods of CompilerBase by just \ncalling the sync version. Use it to save some time when implementing \nsimple compilers.",
+    "lineNumber": 121,
+    "abstract": true,
+    "interface": false,
+    "extends": [
+      "CompilerBase"
+    ]
+  },
+  {
+    "__docId__": 13,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/compiler-base.js~SimpleCompilerBase",
+    "longname": "src/compiler-base.js~SimpleCompilerBase#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 122,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 14,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFile",
+    "memberof": "src/compiler-base.js~SimpleCompilerBase",
+    "longname": "src/compiler-base.js~SimpleCompilerBase#shouldCompileFile",
+    "access": null,
+    "description": null,
+    "lineNumber": 126,
+    "undocument": true,
+    "params": [
+      {
+        "name": "fileName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 15,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFiles",
+    "memberof": "src/compiler-base.js~SimpleCompilerBase",
+    "longname": "src/compiler-base.js~SimpleCompilerBase#determineDependentFiles",
+    "access": null,
+    "description": null,
+    "lineNumber": 130,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 16,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compile",
+    "memberof": "src/compiler-base.js~SimpleCompilerBase",
+    "longname": "src/compiler-base.js~SimpleCompilerBase#compile",
+    "access": null,
+    "description": null,
+    "lineNumber": 134,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 17,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFileSync",
+    "memberof": "src/compiler-base.js~SimpleCompilerBase",
+    "longname": "src/compiler-base.js~SimpleCompilerBase#shouldCompileFileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 138,
+    "undocument": true,
+    "params": [
+      {
+        "name": "fileName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 18,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFilesSync",
+    "memberof": "src/compiler-base.js~SimpleCompilerBase",
+    "longname": "src/compiler-base.js~SimpleCompilerBase#determineDependentFilesSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 142,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 19,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/css/less.js",
+    "memberof": null,
+    "longname": "src/css/less.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import _ from 'lodash';\nimport path from 'path';\nimport {CompilerBase} from '../compiler-base';\n\nconst mimeTypes = ['text/less'];\nlet lessjs = null;\n\n/**\n * @access private\n */ \nexport default class LessCompiler extends CompilerBase {\n  constructor() {\n    super();\n\n    this.compilerOptions = {\n      sourceMap: { sourceMapFileInline: true }\n    };\n\n    this.seenFilePaths = {};\n  }\n\n  static getInputMimeTypes() {\n    return mimeTypes;\n  }\n\n  async shouldCompileFile(fileName, compilerContext) {\n    return true;\n  }\n\n  async determineDependentFiles(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n\n  async compile(sourceCode, filePath, compilerContext) {\n    lessjs = lessjs || require('less');\n\n    let paths = Object.keys(this.seenFilePaths);\n    paths.unshift('.');\n\n    this.seenFilePaths[path.dirname(filePath)] = true;\n\n    let opts = _.extend({}, this.compilerOptions, {\n      paths: paths,\n      filename: path.basename(filePath)\n    });\n\n    let result = await lessjs.render(sourceCode, opts);\n\n    return {\n      code: result.css,\n      mimeType: 'text/css'\n    };\n  }\n\n  shouldCompileFileSync(fileName, compilerContext) {\n    return true;\n  }\n\n  determineDependentFilesSync(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n\n  compileSync(sourceCode, filePath, compilerContext) {\n    lessjs = lessjs || require('less');\n\n    let source = '';\n    let error = null;\n\n    let paths = Object.keys(this.seenFilePaths);\n    paths.unshift('.');\n    this.seenFilePaths[path.dirname(filePath)] = true;\n\n    let opts = _.extend({}, this.compilerOptions, {\n      paths: paths,\n      filename: path.basename(filePath),\n      fileAsync: false, async: false, syncImport: true\n    });\n\n    lessjs.render(sourceCode, opts, (err, out) => {\n      if (err) {\n        error = err;\n      } else {\n        // NB: Because we've forced less to work in sync mode, we can do this\n        source = out.css;\n      }\n    });\n\n    if (error) {\n      throw error;\n    }\n\n    return {\n      code: source,\n      mimeType: 'text/css'\n    };\n  }\n\n  getCompilerVersion() {\n    return require('less/package.json').version;\n  }\n}\n"
+  },
+  {
+    "__docId__": 20,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "mimeTypes",
+    "memberof": "src/css/less.js",
+    "longname": "src/css/less.js~mimeTypes",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/css/less.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 21,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "lessjs",
+    "memberof": "src/css/less.js",
+    "longname": "src/css/less.js~lessjs",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/css/less.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 22,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "LessCompiler",
+    "memberof": "src/css/less.js",
+    "longname": "src/css/less.js~LessCompiler",
+    "access": "private",
+    "export": true,
+    "importPath": "electron-compilers/src/css/less.js",
+    "importStyle": "LessCompiler",
+    "description": null,
+    "lineNumber": 11,
+    "interface": false,
+    "extends": [
+      "src/compiler-base~CompilerBase"
+    ]
+  },
+  {
+    "__docId__": 23,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 12,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 24,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "compilerOptions",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#compilerOptions",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 25,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "seenFilePaths",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#seenFilePaths",
+    "access": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 26,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "getInputMimeTypes",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler.getInputMimeTypes",
+    "access": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 27,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFile",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#shouldCompileFile",
+    "access": null,
+    "description": null,
+    "lineNumber": 26,
+    "undocument": true,
+    "params": [
+      {
+        "name": "fileName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 28,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFiles",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#determineDependentFiles",
+    "access": null,
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 29,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compile",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#compile",
+    "access": null,
+    "description": null,
+    "lineNumber": 34,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 30,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFileSync",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#shouldCompileFileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 55,
+    "undocument": true,
+    "params": [
+      {
+        "name": "fileName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 31,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFilesSync",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#determineDependentFilesSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 59,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 32,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compileSync",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#compileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 63,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 33,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCompilerVersion",
+    "memberof": "src/css/less.js~LessCompiler",
+    "longname": "src/css/less.js~LessCompiler#getCompilerVersion",
+    "access": null,
+    "description": null,
+    "lineNumber": 98,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 34,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/html/inline-html.js",
+    "memberof": null,
+    "longname": "src/html/inline-html.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import _ from 'lodash';\nimport path from 'path';\nimport mimeTypes from 'mime-types';\nimport {CompilerBase} from '../compiler-base';\n\nconst inputMimeTypes = ['text/html'];\nlet cheerio = null;\n\nconst d = require('debug')('electron-compile:inline-html');\n\n/**\n * @access private\n */\nexport default class InlineHtmlCompiler extends CompilerBase {\n  constructor(compileBlock, compileBlockSync) {\n    super();\n\n    this.compileBlock = compileBlock;\n    this.compileBlockSync = compileBlockSync;\n  }\n\n  static createFromCompilers(compilersByMimeType) {\n    d(`Setting up inline HTML compilers: ${JSON.stringify(Object.keys(compilersByMimeType))}`);\n\n    let compileBlock = async (sourceCode, filePath, mimeType, ctx) => {\n      let realType = mimeType;\n      if (!mimeType && ctx.tag === 'script') realType = 'application/javascript';\n\n      if (!realType) return sourceCode;\n\n      let compiler = compilersByMimeType[realType] || compilersByMimeType['text/plain'];\n      let ext = mimeTypes.extension(realType);\n      let fakeFile = `${filePath}:inline_${ctx.count}.${ext}`;\n\n      d(`Compiling inline block for ${filePath} with mimeType ${mimeType}`);\n      if (!(await compiler.shouldCompileFile(fakeFile, ctx))) return sourceCode;\n      return (await compiler.compileSync(sourceCode, fakeFile, ctx)).code;\n    };\n\n    let compileBlockSync = (sourceCode, filePath, mimeType, ctx) => {\n      let realType = mimeType;\n      if (!mimeType && ctx.tag === 'script') realType = 'application/javascript';\n\n      if (!realType) return sourceCode;\n\n      let compiler = compilersByMimeType[realType] || compilersByMimeType['text/plain'];\n      let ext = mimeTypes.extension(realType);\n      let fakeFile = `${filePath}:inline_${ctx.count}.${ext}`;\n\n      d(`Compiling inline block for ${filePath} with mimeType ${mimeType}`);\n      if (!compiler.shouldCompileFileSync(fakeFile, ctx)) return sourceCode;\n      return compiler.compileSync(sourceCode, fakeFile, ctx).code;\n    };\n\n    return new InlineHtmlCompiler(compileBlock, compileBlockSync);\n  }\n\n  static getInputMimeTypes() {\n    return inputMimeTypes;\n  }\n\n  async shouldCompileFile(fileName, compilerContext) {\n    return true;\n  }\n\n  async determineDependentFiles(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n\n  async each(nodes, selector) {\n    let acc = [];\n    nodes.each((i, el) => {\n      let promise = selector(i,el);\n      if (!promise) return false;\n\n      acc.push(promise);\n      return true;\n    });\n\n    await Promise.all(acc);\n  }\n\n  eachSync(nodes, selector) {\n    // NB: This method is here just so it's easier to mechanically\n    // translate the async compile to compileSync\n    return nodes.each((i,el) => {\n      selector(i,el);\n      return true;\n    });\n  }\n\n  async compile(sourceCode, filePath, compilerContext) {\n    cheerio = cheerio || require('cheerio');\n    let $ = cheerio.load(sourceCode);\n    let toWait = [];\n\n    let that = this;\n    let styleCount = 0;\n    toWait.push(this.each($('style'), async (i, el) => {\n      let mimeType = $(el).attr('type') || 'text/plain';\n\n      let thisCtx = _.assign({\n        count: styleCount++,\n        tag: 'style'\n      }, compilerContext);\n\n      $(el).text(await that.compileBlock($(el).text(), filePath, mimeType, thisCtx));\n      $(el).attr('type', 'text/css');\n    }));\n\n    let scriptCount = 0;\n    toWait.push(this.each($('script'), async (i, el) => {\n      let src = $(el).attr('src');\n      if (src && src.length > 2) {\n        $(el).attr('src', InlineHtmlCompiler.fixupRelativeUrl(src));\n        return;\n      }\n\n      let thisCtx = _.assign({\n        count: scriptCount++,\n        tag: 'script'\n      }, compilerContext);\n\n      let mimeType = $(el).attr('type') || 'application/javascript';\n\n      $(el).text(await that.compileBlock($(el).text(), filePath, mimeType, thisCtx));\n      $(el).attr('type', 'application/javascript');\n    }));\n\n    $('link').map((i, el) => {\n      let href = $(el).attr('href');\n      if (href && href.length > 2) { $(el).attr('href', InlineHtmlCompiler.fixupRelativeUrl(href)); }\n    });\n\n    $('x-require').map((i, el) => {\n      let src = $(el).attr('src');\n\n      // File URL? Bail\n      if (src.match(/^file:/i)) return;\n\n      // Absolute path? Bail.\n      if (src.match(/^([\\/]|[A-Za-z]:)/i)) return;\n\n      try {\n        $(el).attr('src', path.resolve(path.dirname(filePath), src));\n      } catch (e) {\n        $(el).text(`${e.message}\\n${e.stack}`);\n      }\n    });\n\n    await Promise.all(toWait);\n\n    return {\n      code: $.html(),\n      mimeType: 'text/html'\n    };\n  }\n\n  shouldCompileFileSync(fileName, compilerContext) {\n    return true;\n  }\n\n  determineDependentFilesSync(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n\n  compileSync(sourceCode, filePath, compilerContext) {\n    cheerio = cheerio || require('cheerio');\n    let $ = cheerio.load(sourceCode);\n\n    let that = this;\n    let styleCount = 0;\n    this.eachSync($('style'), async (i, el) => {\n      let mimeType = $(el).attr('type');\n\n      let thisCtx = _.assign({\n        count: styleCount++,\n        tag: 'style'\n      }, compilerContext);\n\n      $(el).text(that.compileBlockSync($(el).text(), filePath, mimeType, thisCtx));\n      $(el).attr('type', 'text/css');\n    });\n\n    let scriptCount = 0;\n    this.eachSync($('script'), async (i, el) => {\n      let src = $(el).attr('src');\n      if (src && src.length > 2) {\n        $(el).attr('src', InlineHtmlCompiler.fixupRelativeUrl(src));\n        return;\n      }\n\n      let thisCtx = _.assign({\n        count: scriptCount++,\n        tag: 'script'\n      }, compilerContext);\n\n      let mimeType = $(el).attr('type');\n\n      $(el).text(that.compileBlockSync($(el).text(), filePath, mimeType, thisCtx));\n      $(el).attr('type', 'application/javascript');\n    });\n\n    $('link').map((i, el) => {\n      let href = $(el).attr('href');\n      if (href && href.length > 2) { $(el).attr('href', InlineHtmlCompiler.fixupRelativeUrl(href)); }\n    });\n\n    $('x-require').map((i, el) => {\n      let src = $(el).attr('src');\n\n      // File URL? Bail\n      if (src.match(/^file:/i)) return;\n\n      // Absolute path? Bail.\n      if (src.match(/^([\\/]|[A-Za-z]:)/i)) return;\n\n      try {\n        $(el).attr('src', path.resolve(path.dirname(filePath), src));\n      } catch (e) {\n        $(el).text(`${e.message}\\n${e.stack}`);\n      }\n    });\n\n    return {\n      code: $.html(),\n      mimeType: 'text/html'\n    };\n  }\n\n  getCompilerVersion() {\n    let thisVersion = require('../../package.json').version;\n    let otherVersions = _.map(this.allCompilers, (x) => x.getCompilerVersion).join();\n\n    return `${thisVersion},${otherVersions}`;\n  }\n\n  static fixupRelativeUrl(url) {\n    if (!url.match(/^\\/\\//)) return url;\n    return `https:${url}`;\n  }\n}\n"
+  },
+  {
+    "__docId__": 35,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "inputMimeTypes",
+    "memberof": "src/html/inline-html.js",
+    "longname": "src/html/inline-html.js~inputMimeTypes",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/html/inline-html.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 36,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "cheerio",
+    "memberof": "src/html/inline-html.js",
+    "longname": "src/html/inline-html.js~cheerio",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/html/inline-html.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 37,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "d",
+    "memberof": "src/html/inline-html.js",
+    "longname": "src/html/inline-html.js~d",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/html/inline-html.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 9,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 38,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "InlineHtmlCompiler",
+    "memberof": "src/html/inline-html.js",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler",
+    "access": "private",
+    "export": true,
+    "importPath": "electron-compilers/src/html/inline-html.js",
+    "importStyle": "InlineHtmlCompiler",
+    "description": null,
+    "lineNumber": 14,
+    "interface": false,
+    "extends": [
+      "src/compiler-base~CompilerBase"
+    ]
+  },
+  {
+    "__docId__": 39,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "params": [
+      {
+        "name": "compileBlock",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compileBlockSync",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 40,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "compileBlock",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#compileBlock",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 41,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "compileBlockSync",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#compileBlockSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 42,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "createFromCompilers",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler.createFromCompilers",
+    "access": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "params": [
+      {
+        "name": "compilersByMimeType",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 43,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "getInputMimeTypes",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler.getInputMimeTypes",
+    "access": null,
+    "description": null,
+    "lineNumber": 58,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 44,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFile",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#shouldCompileFile",
+    "access": null,
+    "description": null,
+    "lineNumber": 62,
+    "undocument": true,
+    "params": [
+      {
+        "name": "fileName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 45,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFiles",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#determineDependentFiles",
+    "access": null,
+    "description": null,
+    "lineNumber": 66,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 46,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "each",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#each",
+    "access": null,
+    "description": null,
+    "lineNumber": 70,
+    "undocument": true,
+    "params": [
+      {
+        "name": "nodes",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "selector",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "generator": false
+  },
+  {
+    "__docId__": 47,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "eachSync",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#eachSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 83,
+    "undocument": true,
+    "params": [
+      {
+        "name": "nodes",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "selector",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 48,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compile",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#compile",
+    "access": null,
+    "description": null,
+    "lineNumber": 92,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 49,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFileSync",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#shouldCompileFileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 159,
+    "undocument": true,
+    "params": [
+      {
+        "name": "fileName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 50,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFilesSync",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#determineDependentFilesSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 163,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 51,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compileSync",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#compileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 167,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 52,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCompilerVersion",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler#getCompilerVersion",
+    "access": null,
+    "description": null,
+    "lineNumber": 231,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "string"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 53,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "fixupRelativeUrl",
+    "memberof": "src/html/inline-html.js~InlineHtmlCompiler",
+    "longname": "src/html/inline-html.js~InlineHtmlCompiler.fixupRelativeUrl",
+    "access": null,
+    "description": null,
+    "lineNumber": 238,
+    "undocument": true,
+    "params": [
+      {
+        "name": "url",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "string"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 54,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/html/jade.js",
+    "memberof": null,
+    "longname": "src/html/jade.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import _ from 'lodash';\nimport {SimpleCompilerBase} from '../compiler-base';\n\nconst inputMimeTypes = ['text/jade'];\nlet jade = null;\n\n/**\n * @access private\n */ \n export default class JadeCompiler extends SimpleCompilerBase {\n  constructor() {\n    super();\n    this.compilerOptions.sourceMap = true;\n  }\n\n  static getInputMimeTypes() {\n    return inputMimeTypes;\n  }\n\n  compileSync(sourceCode, filePath) {\n    jade = jade || require('jade');\n\n    let code = jade.render(\n      sourceCode,\n      _.extend({ filename: filePath, cache: false }, this.compilerOptions));\n\n    return { code, mimeType: 'text/html' };\n  }\n  \n  getCompilerVersion() {\n    return require('jade/package.json').version;\n  }\n}\n"
+  },
+  {
+    "__docId__": 55,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "inputMimeTypes",
+    "memberof": "src/html/jade.js",
+    "longname": "src/html/jade.js~inputMimeTypes",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/html/jade.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 56,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "jade",
+    "memberof": "src/html/jade.js",
+    "longname": "src/html/jade.js~jade",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/html/jade.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 57,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "JadeCompiler",
+    "memberof": "src/html/jade.js",
+    "longname": "src/html/jade.js~JadeCompiler",
+    "access": "private",
+    "export": true,
+    "importPath": "electron-compilers/src/html/jade.js",
+    "importStyle": "JadeCompiler",
+    "description": null,
+    "lineNumber": 10,
+    "interface": false,
+    "extends": [
+      "src/compiler-base~SimpleCompilerBase"
+    ]
+  },
+  {
+    "__docId__": 58,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/html/jade.js~JadeCompiler",
+    "longname": "src/html/jade.js~JadeCompiler#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 59,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "getInputMimeTypes",
+    "memberof": "src/html/jade.js~JadeCompiler",
+    "longname": "src/html/jade.js~JadeCompiler.getInputMimeTypes",
+    "access": null,
+    "description": null,
+    "lineNumber": 16,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 60,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compileSync",
+    "memberof": "src/html/jade.js~JadeCompiler",
+    "longname": "src/html/jade.js~JadeCompiler#compileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 20,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 61,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCompilerVersion",
+    "memberof": "src/html/jade.js~JadeCompiler",
+    "longname": "src/html/jade.js~JadeCompiler#getCompilerVersion",
+    "access": null,
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 62,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/js/babel.js",
+    "memberof": null,
+    "longname": "src/js/babel.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import _ from 'lodash';\nimport {CompilerBase} from '../compiler-base';\n\nconst mimeTypes = ['text/jsx', 'application/javascript'];\nlet babel = null;\n\n/**\n * @access private\n */ \nexport default class BabelCompiler extends CompilerBase {\n  constructor() {\n    super();\n  }\n\n  static getInputMimeTypes() {\n    return mimeTypes;\n  }\n\n  async shouldCompileFile(fileName, compilerContext) {\n    return true;\n  }\n\n  async determineDependentFiles(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n\n  async compile(sourceCode, filePath, compilerContext) {\n    babel = babel || require('babel-core');\n\n    let opts = _.extend({}, this.compilerOptions, {\n      filename: filePath,\n      ast: false\n    });\n\n    return {\n      code: babel.transform(sourceCode, opts).code,\n      mimeType: 'application/javascript'\n    };\n  }\n\n  shouldCompileFileSync(fileName, compilerContext) {\n    return true;\n  }\n\n  determineDependentFilesSync(sourceCode, filePath, compilerContext) {\n    return [];\n  }\n\n  compileSync(sourceCode, filePath, compilerContext) {\n    babel = babel || require('babel-core');\n\n    let opts = _.extend({}, this.compilerOptions, {\n      filename: filePath,\n      ast: false\n    });\n\n    return {\n      code: babel.transform(sourceCode, opts).code,\n      mimeType: 'application/javascript'\n    };\n  }\n\n  getCompilerVersion() {\n    return require('babel-core/package.json').version;\n  }\n}\n"
+  },
+  {
+    "__docId__": 63,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "mimeTypes",
+    "memberof": "src/js/babel.js",
+    "longname": "src/js/babel.js~mimeTypes",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/js/babel.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 64,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "babel",
+    "memberof": "src/js/babel.js",
+    "longname": "src/js/babel.js~babel",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/js/babel.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 65,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "BabelCompiler",
+    "memberof": "src/js/babel.js",
+    "longname": "src/js/babel.js~BabelCompiler",
+    "access": "private",
+    "export": true,
+    "importPath": "electron-compilers/src/js/babel.js",
+    "importStyle": "BabelCompiler",
+    "description": null,
+    "lineNumber": 10,
+    "interface": false,
+    "extends": [
+      "src/compiler-base~CompilerBase"
+    ]
+  },
+  {
+    "__docId__": 66,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/js/babel.js~BabelCompiler",
+    "longname": "src/js/babel.js~BabelCompiler#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 67,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "getInputMimeTypes",
+    "memberof": "src/js/babel.js~BabelCompiler",
+    "longname": "src/js/babel.js~BabelCompiler.getInputMimeTypes",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 68,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFile",
+    "memberof": "src/js/babel.js~BabelCompiler",
+    "longname": "src/js/babel.js~BabelCompiler#shouldCompileFile",
+    "access": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "params": [
+      {
+        "name": "fileName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 69,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFiles",
+    "memberof": "src/js/babel.js~BabelCompiler",
+    "longname": "src/js/babel.js~BabelCompiler#determineDependentFiles",
+    "access": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 70,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compile",
+    "memberof": "src/js/babel.js~BabelCompiler",
+    "longname": "src/js/babel.js~BabelCompiler#compile",
+    "access": null,
+    "description": null,
+    "lineNumber": 27,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 71,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "shouldCompileFileSync",
+    "memberof": "src/js/babel.js~BabelCompiler",
+    "longname": "src/js/babel.js~BabelCompiler#shouldCompileFileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 41,
+    "undocument": true,
+    "params": [
+      {
+        "name": "fileName",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "boolean"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 72,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "determineDependentFilesSync",
+    "memberof": "src/js/babel.js~BabelCompiler",
+    "longname": "src/js/babel.js~BabelCompiler#determineDependentFilesSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 45,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 73,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compileSync",
+    "memberof": "src/js/babel.js~BabelCompiler",
+    "longname": "src/js/babel.js~BabelCompiler#compileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 49,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "compilerContext",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 74,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCompilerVersion",
+    "memberof": "src/js/babel.js~BabelCompiler",
+    "longname": "src/js/babel.js~BabelCompiler#getCompilerVersion",
+    "access": null,
+    "description": null,
+    "lineNumber": 63,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 75,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/js/coffeescript.js",
+    "memberof": null,
+    "longname": "src/js/coffeescript.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import _ from 'lodash';\nimport path from 'path';\nimport btoa from 'btoa';\nimport {SimpleCompilerBase} from '../compiler-base';\n\nconst inputMimeTypes = ['text/coffeescript'];\nlet coffee = null;\n\n/**\n * @access private\n */ \n export default class CoffeeScriptCompiler extends SimpleCompilerBase {\n  constructor() {\n    super();\n    this.compilerOptions.sourceMap = true;\n  }\n\n  static getInputMimeTypes() {\n    return inputMimeTypes;\n  }\n\n  compileSync(sourceCode, filePath) {\n    coffee = coffee || require('coffee-script');\n\n    let {js, v3SourceMap} = coffee.compile(\n      sourceCode,\n      _.extend({ filename: filePath }, this.compilerOptions));\n\n    js = `${js}\\n` +\n      `//# sourceMappingURL=data:application/json;base64,${btoa(unescape(encodeURIComponent(v3SourceMap)))}\\n` +\n      `//# sourceURL=${this.convertFilePath(filePath)}`;\n\n    return {\n      code: js,\n      mimeType: 'application/javascript'\n    };\n  }\n\n  convertFilePath(filePath) {\n    if (process.platform === 'win32') {\n      filePath = `/${path.resolve(filePath).replace(/\\\\/g, '/')}`;\n    }\n\n    return encodeURI(filePath);\n  }\n\n  getCompilerVersion() {\n    return require('coffee-script/package.json').version;\n  }\n}\n"
+  },
+  {
+    "__docId__": 76,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "inputMimeTypes",
+    "memberof": "src/js/coffeescript.js",
+    "longname": "src/js/coffeescript.js~inputMimeTypes",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/js/coffeescript.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 6,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 77,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "coffee",
+    "memberof": "src/js/coffeescript.js",
+    "longname": "src/js/coffeescript.js~coffee",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/js/coffeescript.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 7,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 78,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "CoffeeScriptCompiler",
+    "memberof": "src/js/coffeescript.js",
+    "longname": "src/js/coffeescript.js~CoffeeScriptCompiler",
+    "access": "private",
+    "export": true,
+    "importPath": "electron-compilers/src/js/coffeescript.js",
+    "importStyle": "CoffeeScriptCompiler",
+    "description": null,
+    "lineNumber": 12,
+    "interface": false,
+    "extends": [
+      "src/compiler-base~SimpleCompilerBase"
+    ]
+  },
+  {
+    "__docId__": 79,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/js/coffeescript.js~CoffeeScriptCompiler",
+    "longname": "src/js/coffeescript.js~CoffeeScriptCompiler#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 13,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 80,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "getInputMimeTypes",
+    "memberof": "src/js/coffeescript.js~CoffeeScriptCompiler",
+    "longname": "src/js/coffeescript.js~CoffeeScriptCompiler.getInputMimeTypes",
+    "access": null,
+    "description": null,
+    "lineNumber": 18,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 81,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compileSync",
+    "memberof": "src/js/coffeescript.js~CoffeeScriptCompiler",
+    "longname": "src/js/coffeescript.js~CoffeeScriptCompiler#compileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 22,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 82,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "convertFilePath",
+    "memberof": "src/js/coffeescript.js~CoffeeScriptCompiler",
+    "longname": "src/js/coffeescript.js~CoffeeScriptCompiler#convertFilePath",
+    "access": null,
+    "description": null,
+    "lineNumber": 39,
+    "undocument": true,
+    "params": [
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 83,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCompilerVersion",
+    "memberof": "src/js/coffeescript.js~CoffeeScriptCompiler",
+    "longname": "src/js/coffeescript.js~CoffeeScriptCompiler#getCompilerVersion",
+    "access": null,
+    "description": null,
+    "lineNumber": 47,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 84,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/js/typescript.js",
+    "memberof": null,
+    "longname": "src/js/typescript.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import {SimpleCompilerBase} from '../compiler-base';\nimport _ from 'lodash';\n\nconst inputMimeTypes = ['text/typescript'];\nlet tss = null;\n\n/**\n * @access private\n */ \n export default class TypeScriptCompiler extends SimpleCompilerBase {\n  constructor() {\n    super();\n    this.compilerOptions.sourceMap = true;\n\n    this.compilerOptions = {\n      module: 'commonjs',\n      sourceMap: true\n    };\n  }\n\n  static getInputMimeTypes() {\n    return inputMimeTypes;\n  }\n\n  compileSync(sourceCode, filePath) {\n    tss = tss || require('typescript-simple');\n    \n    // NB: Work around TypeScriptSimple modifying the options object\n    let compiler = new tss.TypeScriptSimple(_.assign({}, this.compilerOptions));\n\n    return {\n      code: compiler.compile(sourceCode, filePath),\n      mimeType: 'application/javascript'\n    };\n  }\n\n  getCompilerVersion() {\n    return require('typescript-simple/package.json').version;\n  }\n}\n"
+  },
+  {
+    "__docId__": 85,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "inputMimeTypes",
+    "memberof": "src/js/typescript.js",
+    "longname": "src/js/typescript.js~inputMimeTypes",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/js/typescript.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 4,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 86,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "tss",
+    "memberof": "src/js/typescript.js",
+    "longname": "src/js/typescript.js~tss",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/js/typescript.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 87,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "TypeScriptCompiler",
+    "memberof": "src/js/typescript.js",
+    "longname": "src/js/typescript.js~TypeScriptCompiler",
+    "access": "private",
+    "export": true,
+    "importPath": "electron-compilers/src/js/typescript.js",
+    "importStyle": "TypeScriptCompiler",
+    "description": null,
+    "lineNumber": 10,
+    "interface": false,
+    "extends": [
+      "src/compiler-base~SimpleCompilerBase"
+    ]
+  },
+  {
+    "__docId__": 88,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/js/typescript.js~TypeScriptCompiler",
+    "longname": "src/js/typescript.js~TypeScriptCompiler#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 11,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 89,
+    "kind": "member",
+    "static": false,
+    "variation": null,
+    "name": "compilerOptions",
+    "memberof": "src/js/typescript.js~TypeScriptCompiler",
+    "longname": "src/js/typescript.js~TypeScriptCompiler#compilerOptions",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 90,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "getInputMimeTypes",
+    "memberof": "src/js/typescript.js~TypeScriptCompiler",
+    "longname": "src/js/typescript.js~TypeScriptCompiler.getInputMimeTypes",
+    "access": null,
+    "description": null,
+    "lineNumber": 21,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 91,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compileSync",
+    "memberof": "src/js/typescript.js~TypeScriptCompiler",
+    "longname": "src/js/typescript.js~TypeScriptCompiler#compileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 25,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 92,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCompilerVersion",
+    "memberof": "src/js/typescript.js~TypeScriptCompiler",
+    "longname": "src/js/typescript.js~TypeScriptCompiler#getCompilerVersion",
+    "access": null,
+    "description": null,
+    "lineNumber": 37,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 93,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/main.js",
+    "memberof": null,
+    "longname": "src/main.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import _ from 'lodash';\n\nconst filenames = [\n  'css/less',\n  'js/babel',\n  'js/coffeescript',\n  'js/typescript',\n  'html/inline-html',\n  'html/jade',\n  'passthrough'\n];\n\nmodule.exports = _.map(filenames, (x) => require('./' + x).default);\n"
+  },
+  {
+    "__docId__": 94,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "filenames",
+    "memberof": "src/main.js",
+    "longname": "src/main.js~filenames",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/main.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 3,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 95,
+    "kind": "file",
+    "static": true,
+    "variation": null,
+    "name": "src/passthrough.js",
+    "memberof": null,
+    "longname": "src/passthrough.js",
+    "access": null,
+    "description": null,
+    "lineNumber": 1,
+    "content": "import path from 'path';\nimport {SimpleCompilerBase} from './compiler-base';\nimport mimeTypes from 'mime-types';\n\nconst inputMimeTypes = ['text/plain'];\n\n\n/**\n * @access private\n * \n * This class is used for binary files and other files that should end up in \n * your cache directory, but aren't actually compiled\n */ \nexport default class PassthroughCompiler extends SimpleCompilerBase {\n  constructor() {\n    super();\n  }\n\n  static getInputMimeTypes() {\n    return inputMimeTypes;\n  }\n\n  compileSync(sourceCode, filePath) {\n    return {\n      code: sourceCode,\n      mimeType: mimeTypes.lookup(filePath)\n    };\n  }\n  \n  getCompilerVersion() {\n    return require(path.join(__dirname, '..', 'package.json')).version;\n  }\n}\n"
+  },
+  {
+    "__docId__": 96,
+    "kind": "variable",
+    "static": true,
+    "variation": null,
+    "name": "inputMimeTypes",
+    "memberof": "src/passthrough.js",
+    "longname": "src/passthrough.js~inputMimeTypes",
+    "access": null,
+    "export": false,
+    "importPath": "electron-compilers/src/passthrough.js",
+    "importStyle": null,
+    "description": null,
+    "lineNumber": 5,
+    "undocument": true,
+    "type": {
+      "types": [
+        "*"
+      ]
+    }
+  },
+  {
+    "__docId__": 97,
+    "kind": "class",
+    "static": true,
+    "variation": null,
+    "name": "PassthroughCompiler",
+    "memberof": "src/passthrough.js",
+    "longname": "src/passthrough.js~PassthroughCompiler",
+    "access": "private\n\nThis class is used for binary files and other files that should end up in \nyour cache directory, but aren't actually compiled",
+    "export": true,
+    "importPath": "electron-compilers/src/passthrough.js",
+    "importStyle": "PassthroughCompiler",
+    "description": null,
+    "lineNumber": 14,
+    "interface": false,
+    "extends": [
+      "src/compiler-base~SimpleCompilerBase"
+    ]
+  },
+  {
+    "__docId__": 98,
+    "kind": "constructor",
+    "static": false,
+    "variation": null,
+    "name": "constructor",
+    "memberof": "src/passthrough.js~PassthroughCompiler",
+    "longname": "src/passthrough.js~PassthroughCompiler#constructor",
+    "access": null,
+    "description": null,
+    "lineNumber": 15,
+    "undocument": true,
+    "params": [],
+    "generator": false
+  },
+  {
+    "__docId__": 99,
+    "kind": "method",
+    "static": true,
+    "variation": null,
+    "name": "getInputMimeTypes",
+    "memberof": "src/passthrough.js~PassthroughCompiler",
+    "longname": "src/passthrough.js~PassthroughCompiler.getInputMimeTypes",
+    "access": null,
+    "description": null,
+    "lineNumber": 19,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 100,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "compileSync",
+    "memberof": "src/passthrough.js~PassthroughCompiler",
+    "longname": "src/passthrough.js~PassthroughCompiler#compileSync",
+    "access": null,
+    "description": null,
+    "lineNumber": 23,
+    "undocument": true,
+    "params": [
+      {
+        "name": "sourceCode",
+        "types": [
+          "*"
+        ]
+      },
+      {
+        "name": "filePath",
+        "types": [
+          "*"
+        ]
+      }
+    ],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 101,
+    "kind": "method",
+    "static": false,
+    "variation": null,
+    "name": "getCompilerVersion",
+    "memberof": "src/passthrough.js~PassthroughCompiler",
+    "longname": "src/passthrough.js~PassthroughCompiler#getCompilerVersion",
+    "access": null,
+    "description": null,
+    "lineNumber": 30,
+    "undocument": true,
+    "params": [],
+    "return": {
+      "types": [
+        "*"
+      ]
+    },
+    "generator": false
+  },
+  {
+    "__docId__": 103,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Infinity",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Infinity",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Infinity",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 104,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NaN",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/NaN",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~NaN",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 105,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "undefined",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/undefined",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~undefined",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 106,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "null",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/null",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~null",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 107,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 108,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "object",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~object",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 109,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 110,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "function",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Function",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~function",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 111,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 112,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "boolean",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Boolean",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~boolean",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 113,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Symbol",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Symbol",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Symbol",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 114,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Error",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Error",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Error",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 115,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "EvalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/EvalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~EvalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 116,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "InternalError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/InternalError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~InternalError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 117,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RangeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RangeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RangeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 118,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ReferenceError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ReferenceError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ReferenceError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 119,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "SyntaxError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/SyntaxError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~SyntaxError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 120,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "TypeError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypeError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~TypeError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 121,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "URIError",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/URIError",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~URIError",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 122,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 123,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "number",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~number",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 124,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Date",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Date",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 125,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "String",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~String",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 126,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "string",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/String",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~string",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 127,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "RegExp",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~RegExp",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 128,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 129,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 130,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 131,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint8ClampedArray",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint8ClampedArray",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint8ClampedArray",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 132,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 133,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint16Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint16Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint16Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 134,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Int32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Int32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Int32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 135,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Uint32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Uint32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Uint32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 136,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float32Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float32Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float32Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 137,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Float64Array",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Float64Array",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Float64Array",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 138,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Map",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Map",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 139,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Set",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Set",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Set",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 140,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakMap",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakMap",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakMap",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 141,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "WeakSet",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/WeakSet",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~WeakSet",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 142,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "ArrayBuffer",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~ArrayBuffer",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 143,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DataView",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/DataView",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~DataView",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 144,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "JSON",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/JSON",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~JSON",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 145,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Promise",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Promise",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 146,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Generator",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Generator",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Generator",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 147,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "GeneratorFunction",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/GeneratorFunction",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~GeneratorFunction",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 148,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Reflect",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Reflect",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Reflect",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 149,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Proxy",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Proxy",
+    "memberof": "BuiltinExternal/ECMAScriptExternal.js",
+    "longname": "BuiltinExternal/ECMAScriptExternal.js~Proxy",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 151,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "CanvasRenderingContext2D",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/CanvasRenderingContext2D",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~CanvasRenderingContext2D",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 152,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "DocumentFragment",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/DocumentFragment",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~DocumentFragment",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 153,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Element",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Element",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Element",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 154,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Event",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Event",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Event",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 155,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "Node",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/Node",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~Node",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 156,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "NodeList",
+    "externalLink": "https://developer.mozilla.org/en-US/docs/Web/API/NodeList",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~NodeList",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 157,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "XMLHttpRequest",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/XMLHttpRequest",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~XMLHttpRequest",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  },
+  {
+    "__docId__": 158,
+    "kind": "external",
+    "static": true,
+    "variation": null,
+    "name": "AudioContext",
+    "externalLink": "https://developer.mozilla.org/en/docs/Web/API/AudioContext",
+    "memberof": "BuiltinExternal/WebAPIExternal.js",
+    "longname": "BuiltinExternal/WebAPIExternal.js~AudioContext",
+    "access": null,
+    "description": null,
+    "builtinExternal": true
+  }
+]
