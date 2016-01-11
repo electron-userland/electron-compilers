@@ -2,6 +2,7 @@ import _ from 'lodash';
 
 const filenames = [
   'css/less',
+  'css/sass',
   'js/babel',
   'js/coffeescript',
   'js/typescript',
