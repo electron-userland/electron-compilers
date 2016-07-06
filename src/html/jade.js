@@ -17,7 +17,7 @@ export default class JadeCompiler extends SimpleCompilerBase {
   }
 
   compileSync(sourceCode, filePath) {
-    jade = jade || require('jade');
+    jade = pug || require('pug');
 
     let code = jade.render(
       sourceCode,
@@ -27,6 +27,6 @@ export default class JadeCompiler extends SimpleCompilerBase {
   }
   
   getCompilerVersion() {
-    return require('jade/package.json').version;
+    return require('pug/package.json').version;
   }
 }
