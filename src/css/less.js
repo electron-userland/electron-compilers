@@ -30,24 +30,8 @@ export default class LessCompiler extends CompilerBase {
   async determineDependentFiles(sourceCode, filePath, compilerContext) {
     // NB: We have to compile the Less first to determine dependent files –
     // otherwise we'd have to use some private APIs.
-    lessjs = lessjs || require('less');
-
-    let paths = Object.keys(this.seenFilePaths);
-    paths.unshift('.');
-
-    this.seenFilePaths[path.dirname(filePath)] = true;
-
-    if (this.compilerOptions.paths) {
-      paths.push(...this.compilerOptions.paths);
-    }
-
-    let opts = _.extend({}, this.compilerOptions, {
-      paths: paths,
-      filename: path.basename(filePath)
-    });
-
     try {
-      compilerContext.result = await lessjs.render(sourceCode, opts);
+      compilerContext.result = await this.render(sourceCode, filePath);
       return [...compilerContext.result.imports];
     } catch(e) {
       compilerContext.err = e;
@@ -61,10 +45,34 @@ export default class LessCompiler extends CompilerBase {
     if (compilerContext.err) {
       throw compilerContext.err;
     }
+
+    compilerContext.result = compilerContext.result || await this.render(sourceCode, filePath);
+
     return {
       code: compilerContext.result.css,
       mimeType: 'text/css'
     };
+  }
+
+  async render(sourceCode, filePath) {
+    lessjs = lessjs || require('less');
+
+    let paths = Object.keys(this.seenFilePaths);
+    paths.unshift('.');
+
+    this.seenFilePaths[path.dirname(filePath)] = true;
+
+    if (this.compilerOptions.paths) {
+      paths.push(...this.compilerOptions.paths);
+    }
+
+    let opts = {
+      ...this.compilerOptions,
+      paths: paths,
+      filename: path.basename(filePath)
+    };
+
+    return lessjs.render(sourceCode, opts);
   }
 
   shouldCompileFileSync(fileName, compilerContext) {
