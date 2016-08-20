@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import path from 'path';
 import mimeTypes from '@paulcbetts/mime-types';
 import {CompilerBase} from '../compiler-base';
@@ -6,7 +5,7 @@ import {CompilerBase} from '../compiler-base';
 const inputMimeTypes = ['text/html'];
 let cheerio = null;
 
-const d = require('debug')('electron-compile:inline-html');
+const d = require('debug-electron')('electron-compile:inline-html');
 
 /**
  * @access private
@@ -91,7 +90,9 @@ export default class InlineHtmlCompiler extends CompilerBase {
 
   async compile(sourceCode, filePath, compilerContext) {
     cheerio = cheerio || require('cheerio');
-    let $ = cheerio.load(sourceCode);
+    
+    //Leave the attributes casing as it is, because of Angular 2 and maybe other case-sensitive frameworks
+    let $ = cheerio.load(sourceCode, {lowerCaseAttributeNames: false});
     let toWait = [];
 
     let that = this;
@@ -99,14 +100,14 @@ export default class InlineHtmlCompiler extends CompilerBase {
     toWait.push(this.each($('style'), async (i, el) => {
       let mimeType = $(el).attr('type') || 'text/plain';
 
-      let thisCtx = _.assign({
+      let thisCtx = Object.assign({
         count: styleCount++,
         tag: 'style'
       }, compilerContext);
 
       let origText = $(el).text();
       let newText = await that.compileBlock(origText, filePath, mimeType, thisCtx);
-      
+
       if (origText !== newText) {
         $(el).text(newText);
         $(el).attr('type', 'text/css');
@@ -121,7 +122,7 @@ export default class InlineHtmlCompiler extends CompilerBase {
         return;
       }
 
-      let thisCtx = _.assign({
+      let thisCtx = Object.assign({
         count: scriptCount++,
         tag: 'script'
       }, compilerContext);
@@ -139,6 +140,11 @@ export default class InlineHtmlCompiler extends CompilerBase {
     $('link').map((i, el) => {
       let href = $(el).attr('href');
       if (href && href.length > 2) { $(el).attr('href', InlineHtmlCompiler.fixupRelativeUrl(href)); }
+
+      // NB: In recent versions of Chromium, the link type MUST be text/css or
+      // it will be flat-out ignored. Also I hate myself for hardcoding these.
+      let type = $(el).attr('type');
+      if (type === 'text/less' || type === 'text/stylus') $(el).attr('type', 'text/css');
     });
 
     $('x-require').map((i, el) => {
@@ -175,18 +181,20 @@ export default class InlineHtmlCompiler extends CompilerBase {
 
   compileSync(sourceCode, filePath, compilerContext) {
     cheerio = cheerio || require('cheerio');
-    let $ = cheerio.load(sourceCode);
+    
+    //Leave the attributes casing as it is, because of Angular 2 and maybe other case-sensitive frameworks
+    let $ = cheerio.load(sourceCode, {lowerCaseAttributeNames: false});
 
     let that = this;
     let styleCount = 0;
     this.eachSync($('style'), async (i, el) => {
       let mimeType = $(el).attr('type');
 
-      let thisCtx = _.assign({
+      let thisCtx = Object.assign({
         count: styleCount++,
         tag: 'style'
       }, compilerContext);
-      
+
       let origText = $(el).text();
       let newText = that.compileBlockSync(origText, filePath, mimeType, thisCtx);
 
@@ -204,13 +212,13 @@ export default class InlineHtmlCompiler extends CompilerBase {
         return;
       }
 
-      let thisCtx = _.assign({
+      let thisCtx = Object.assign({
         count: scriptCount++,
         tag: 'script'
       }, compilerContext);
 
       let mimeType = $(el).attr('type');
-      
+
       let oldText = $(el).text();
       let newText = that.compileBlockSync(oldText, filePath, mimeType, thisCtx);
 
@@ -223,6 +231,11 @@ export default class InlineHtmlCompiler extends CompilerBase {
     $('link').map((i, el) => {
       let href = $(el).attr('href');
       if (href && href.length > 2) { $(el).attr('href', InlineHtmlCompiler.fixupRelativeUrl(href)); }
+
+      // NB: In recent versions of Chromium, the link type MUST be text/css or
+      // it will be flat-out ignored. Also I hate myself for hardcoding these.
+      let type = $(el).attr('type');
+      if (type === 'text/less' || type === 'text/stylus') $(el).attr('type', 'text/css');
     });
 
     $('x-require').map((i, el) => {
@@ -249,7 +262,8 @@ export default class InlineHtmlCompiler extends CompilerBase {
 
   getCompilerVersion() {
     let thisVersion = require('../../package.json').version;
-    let otherVersions = _.map(this.allCompilers, (x) => x.getCompilerVersion).join();
+    let compilers = this.allCompilers || [];
+    let otherVersions = compilers.map((x) => x.getCompilerVersion).join();
 
     return `${thisVersion},${otherVersions}`;
   }

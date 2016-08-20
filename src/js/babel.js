@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import path from 'path';
 import {CompilerBase} from '../compiler-base';
 
@@ -31,13 +30,20 @@ export default class BabelCompiler extends CompilerBase {
   // installed in it. Instead, we try to load from our entry point's node_modules
   // directory (i.e. Grunt perhaps), and if it doesn't work, just keep going.
   attemptToPreload(names, prefix) {
+    const fixupModule = (exp) => {
+      // NB: Some plugins like transform-decorators-legacy, use import/export
+      // semantics, and others don't
+      if ('default' in exp) return exp['default'];
+      return exp;
+    };
+
     const preloadStrategies = [
-      () => _.map(names, (x) => require.main.require(`babel-${prefix}-${x}`)),
+      () => names.map((x) => fixupModule(require.main.require(`babel-${prefix}-${x}`))),
       () => {
         let nodeModulesAboveUs = path.resolve(__dirname, '..', '..', '..');
-        return _.map(names, (x) => require(path.join(nodeModulesAboveUs, `babel-${prefix}-${x}`)));
+        return names.map((x) => fixupModule(require(path.join(nodeModulesAboveUs, `babel-${prefix}-${x}`))));
       },
-      () => _.map(names, (x) => require(`babel-${prefix}-${x}`))
+      () => names.map((x) => fixupModule(require(`babel-${prefix}-${x}`)))
     ];
 
     for (let strategy of preloadStrategies) {
@@ -54,7 +60,7 @@ export default class BabelCompiler extends CompilerBase {
   async compile(sourceCode, filePath, compilerContext) {
     babel = babel || require('babel-core');
 
-    let opts = _.extend({}, this.compilerOptions, {
+    let opts = Object.assign({}, this.compilerOptions, {
       filename: filePath,
       ast: false,
       babelrc: false
@@ -87,7 +93,7 @@ export default class BabelCompiler extends CompilerBase {
   compileSync(sourceCode, filePath, compilerContext) {
     babel = babel || require('babel-core');
 
-    let opts = _.extend({}, this.compilerOptions, {
+    let opts = Object.assign({}, this.compilerOptions, {
       filename: filePath,
       ast: false,
       babelrc: false

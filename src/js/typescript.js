@@ -1,8 +1,9 @@
 import {SimpleCompilerBase} from '../compiler-base';
-import _ from 'lodash';
+import path from 'path';
 
-const inputMimeTypes = ['text/typescript'];
+const inputMimeTypes = ['text/typescript', 'text/tsx'];
 let tss = null;
+let ts = null;
 
 /**
  * @access private
@@ -10,11 +11,11 @@ let tss = null;
 export default class TypeScriptCompiler extends SimpleCompilerBase {
   constructor() {
     super();
-    this.compilerOptions.sourceMap = true;
-
+    
     this.compilerOptions = {
       module: 'commonjs',
-      sourceMap: true
+      sourceMap: true,
+      doSemanticChecks: true
     };
   }
 
@@ -23,18 +24,31 @@ export default class TypeScriptCompiler extends SimpleCompilerBase {
   }
 
   compileSync(sourceCode, filePath) {
-    tss = tss || require('typescript-simple');
+    tss = tss || require('typescript-simple'); 
+    ts = ts || require('typescript');
+    
+    // NB: We set outDir here to work around a bug in TypeScriptSimple
+    // NB: If you enable semantic checks with TSX, you're gonna have a
+    //     Bad Time
+    let extraOpts = {target: ts.ScriptTarget.ES6, outDir: '/'};
+    let isJsx = false;
+    if (filePath.match(/\.tsx$/i)) {
+      extraOpts.jsx = ts.JsxEmit.React;
+      isJsx = true;
+    }
     
     // NB: Work around TypeScriptSimple modifying the options object
-    let compiler = new tss.TypeScriptSimple(_.assign({}, this.compilerOptions));
+    let compiler = new tss.TypeScriptSimple(
+      Object.assign({}, this.compilerOptions, extraOpts), 
+      this.compilerOptions.doSemanticChecks && !isJsx);
 
     return {
-      code: compiler.compile(sourceCode, filePath),
+      code: compiler.compile(sourceCode, path.basename(filePath)),
       mimeType: 'application/javascript'
     };
   }
 
   getCompilerVersion() {
-    return require('typescript-simple/package.json').version;
+    return require('typescript/package.json').version;
   }
 }

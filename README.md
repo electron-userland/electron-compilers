@@ -1,11 +1,11 @@
 ## electron-compilers
 
-<a href="http://electronjs.github.io/electron-compilers/docs">
-![](http://electronjs.github.io/electron-compilers/docs/badge.svg)
+<a href="http://electron.github.io/electron-compilers/docs">
+![](http://electron.github.io/electron-compilers/docs/badge.svg)
 </a>
 
 electron-compilers are the actual implementations of classes that power
-[electron-compile](https://github.com/electronjs/electron-compile)
+[electron-compile](https://github.com/electron/electron-compile)
 
 For JavaScript:
 
@@ -16,7 +16,7 @@ For JavaScript:
 For CSS:
 
 * LESS
-* Stylus
+* Stylus (with optional nib)
 
 For HTML:
 

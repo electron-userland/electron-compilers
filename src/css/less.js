@@ -1,4 +1,3 @@
-import _ from 'lodash';
 import path from 'path';
 import {CompilerBase} from '../compiler-base';
 
@@ -57,20 +56,19 @@ export default class LessCompiler extends CompilerBase {
   async render(sourceCode, filePath) {
     lessjs = lessjs || require('less');
 
-    let paths = Object.keys(this.seenFilePaths);
-    paths.unshift('.');
+    let thisPath = path.dirname(filePath);
+    this.seenFilePaths[thisPath] = true;
 
-    this.seenFilePaths[path.dirname(filePath)] = true;
+    let paths = Object.keys(this.seenFilePaths);
 
     if (this.compilerOptions.paths) {
       paths.push(...this.compilerOptions.paths);
     }
 
-    let opts = {
-      ...this.compilerOptions,
+    let opts = Object.assign({}, this.compilerOptions, {
       paths: paths,
       filename: path.basename(filePath)
-    };
+    });
 
     return lessjs.render(sourceCode, opts);
   }
@@ -86,11 +84,16 @@ export default class LessCompiler extends CompilerBase {
 
     let error = null;
 
-    let paths = Object.keys(this.seenFilePaths);
-    paths.unshift('.');
-    this.seenFilePaths[path.dirname(filePath)] = true;
+    let thisPath = path.dirname(filePath);
+    this.seenFilePaths[thisPath] = true;
 
-    let opts = _.extend({}, this.compilerOptions, {
+    let paths = Object.keys(this.seenFilePaths);
+
+    if (this.compilerOptions.paths) {
+      paths.push(...this.compilerOptions.paths);
+    }
+
+    let opts = Object.assign({}, this.compilerOptions, {
       paths: paths,
       filename: path.basename(filePath),
       fileAsync: false, async: false, syncImport: true
