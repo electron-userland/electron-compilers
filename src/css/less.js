@@ -27,10 +27,33 @@ export default class LessCompiler extends CompilerBase {
   }
 
   async determineDependentFiles(sourceCode, filePath, compilerContext) {
-    return [];
+    // NB: We have to compile the Less first to determine dependent files –
+    // otherwise we'd have to use some private APIs.
+    try {
+      compilerContext.result = await this.render(sourceCode, filePath);
+      return [...compilerContext.result.imports];
+    } catch(e) {
+      compilerContext.err = e;
+      return [];
+    }
   }
 
   async compile(sourceCode, filePath, compilerContext) {
+    // NB: We already compiled the Less in `determineDependentFiles`, so we can
+    // just return it here.
+    if (compilerContext.err) {
+      throw compilerContext.err;
+    }
+
+    compilerContext.result = compilerContext.result || await this.render(sourceCode, filePath);
+
+    return {
+      code: compilerContext.result.css,
+      mimeType: 'text/css'
+    };
+  }
+
+  async render(sourceCode, filePath) {
     lessjs = lessjs || require('less');
 
     let thisPath = path.dirname(filePath);
@@ -47,12 +70,7 @@ export default class LessCompiler extends CompilerBase {
       filename: path.basename(filePath)
     });
 
-    let result = await lessjs.render(sourceCode, opts);
-
-    return {
-      code: result.css,
-      mimeType: 'text/css'
-    };
+    return lessjs.render(sourceCode, opts);
   }
 
   shouldCompileFileSync(fileName, compilerContext) {
@@ -60,13 +78,10 @@ export default class LessCompiler extends CompilerBase {
   }
 
   determineDependentFilesSync(sourceCode, filePath, compilerContext) {
-    return [];
-  }
-
-  compileSync(sourceCode, filePath, compilerContext) {
+    // NB: We have to compile the Less first to determine dependent files –
+    // otherwise we'd have to use some private APIs.
     lessjs = lessjs || require('less');
 
-    let source = '';
     let error = null;
 
     let thisPath = path.dirname(filePath);
@@ -87,9 +102,10 @@ export default class LessCompiler extends CompilerBase {
     lessjs.render(sourceCode, opts, (err, out) => {
       if (err) {
         error = err;
+        compilerContext.err = err;
       } else {
         // NB: Because we've forced less to work in sync mode, we can do this
-        source = out.css;
+        compilerContext.result = out;
       }
     });
 
@@ -97,8 +113,27 @@ export default class LessCompiler extends CompilerBase {
       throw error;
     }
 
+    return compilerContext.result ? [...compilerContext.result.imports] : [];
+
+  }
+
+  compileSync(sourceCode, filePath, compilerContext) {
+    // NB: We already compiled the Less in `determineDependentFiles`, so we can
+    // just return it here.
+    if (!compilerContext.result) {
+      try {
+        this.determineDependentFilesSync(sourceCode, filePath, compilerContext);
+      } catch(e) {
+        throw e;
+      }
+    }
+
+    if (compilerContext.err) {
+      throw compilerContext.err;
+    }
+
     return {
-      code: source,
+      code: compilerContext.result.css || '',
       mimeType: 'text/css'
     };
   }
