@@ -11,6 +11,7 @@ const mimeTypeToSimpleType = {
   'text/typescript': 'ts',
   'application/javascript': 'js',
   'text/jade': 'jade',
+  'text/pug': 'pug',
   'text/less': 'less',
   'text/sass': 'sass',
   'text/scss': 'scss',
