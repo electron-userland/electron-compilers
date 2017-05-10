@@ -2,6 +2,7 @@ import path from 'path';
 import detective from 'detective-less';
 import {CompilerBase} from '../compiler-base';
 import toutSuite from 'toutsuite';
+import fs from 'fs';
 
 const mimeTypes = ['text/less'];
 let lessjs = null;
@@ -75,7 +76,15 @@ export default class LessCompiler extends CompilerBase {
     let dependencies = [];
 
     for (let dependencyName of dependencyFilenames) {
-      dependencies.push(path.join(path.dirname(filePath), dependencyName));
+      let paths = [
+        path.join(path.dirname(filePath), dependencyName)
+      ].concat((this.compilerOptions.paths || []).map(p => path.resolve(process.cwd(), p, dependencyName)))
+
+      let dependency = paths.find(p => fs.existsSync(p))
+
+      if (dependency) {
+        dependencies.push(dependency)
+      }
     }
 
     return dependencies;
