@@ -1,5 +1,5 @@
 {
-  "name": "@getstation/electron-compilers",
+  "name": "electron-compilers",
   "version": "5.10.0",
   "description": "Compiler implementations for electron-compile",
   "main": "lib/main.js",
