@@ -58,6 +58,9 @@ export default class SassCompiler extends CompilerBase {
       sourceMapRoot: filePath,
     });
 
+    // not a valid option
+    delete opts.paths;
+
     let result = await new Promise((res,rej) => {
       sass.compile(sourceCode, opts, (r) => {
         if (r.status !== 0) {
