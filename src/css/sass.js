@@ -165,7 +165,14 @@ export default class SassCompiler extends CompilerBase {
         return;
       } else {
         // sass.js works in the '/sass/' directory
-        const cleanedRequestPath = request.resolved.replace(/^\/sass\//, '');
+        let cleanedRequestPath = request.resolved.replace(/^\/sass\//, '');
+
+        // if we are importing from the entry file (stdin) the path is
+        // resolved with a leading '/'' -> remove it
+        if (request.previous === 'stdin' && cleanedRequestPath.charAt(0) === '/') {
+          cleanedRequestPath = cleanedRequestPath.substring(1);
+        }
+
         for (let includePath of includePaths) {
           const filePath = path.resolve(includePath, cleanedRequestPath);
           let variations = sass.getPathVariations(filePath);
