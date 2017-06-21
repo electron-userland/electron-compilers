@@ -105,13 +105,13 @@ export default class BabelCompiler extends SimpleCompilerBase {
     }
 
     if (useCoverage) {
-      babelPluginIstanbul = babelPluginIstanbul || require('babel-plugin-istanbul')
+      babelPluginIstanbul = babelPluginIstanbul || require('babel-plugin-istanbul').default;
       const coveragePlugin = [
         babelPluginIstanbul, {
           inputSourceMap: compilerContext.inputSourceMap,
         },
       ];
-      opts.plugins = (opts.plugins || []).concat([coveragePlugin])
+      opts.plugins = (opts.plugins || []).concat([coveragePlugin]);
     }
 
     const output = babel.transform(sourceCode, opts);
