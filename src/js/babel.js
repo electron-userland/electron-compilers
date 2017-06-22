@@ -80,7 +80,7 @@ export default class BabelCompiler extends SimpleCompilerBase {
       filename: filePath,
       ast: false,
       babelrc: false
-    }, compilerContext);
+    });
 
     let useCoverage = false;
     if ('coverage' in opts) {

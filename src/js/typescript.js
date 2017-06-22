@@ -112,13 +112,14 @@ export default class TypeScriptCompiler extends SimpleCompilerBase {
           babelOpts.sourceMaps = true;
         }
 
-        this.babel.compilerOptions = babelOpts;
+        this.babelOpts = babelOpts;
       }
 
-      let babelOutput = this.babel.compileSync(code, filePath, {
+      this.babel.compilerOptions = Object.assign({}, this.babelOpts, {
         // babel API wants sourceMap as an object or a path. let's not touch the disk.
         inputSourceMap: sourceMaps ? JSON.parse(sourceMaps) : null,
       });
+      let babelOutput = this.babel.compileSync(code, filePath, {});
 
       // babel-transformed, potentially instrumented code
       code = babelOutput.code;
