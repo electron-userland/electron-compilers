@@ -56,11 +56,10 @@ export default class TypeScriptCompiler extends SimpleCompilerBase {
     let userBabelOpts = this.parsedConfig.builtinOpts.babel;
     let useCoverage = false;
     if ('coverage' in options.builtinOpts) {
-      const coverage = options.builtinOpts.coverage;
-      if (typeof coverage === 'string') {
-        useCoverage = this.getEnv() === coverage;
-      } else {
-        useCoverage = !!coverage;
+      // sic. this check is duplicated here because if we're not
+      // in test then we may be able to avoid the babel pass entirely.
+      if (this.getEnv() === "test") {
+        useCoverage = true;
       }
     }
 
@@ -102,7 +101,7 @@ export default class TypeScriptCompiler extends SimpleCompilerBase {
 
         let babelOpts = Object.assign({}, userBabelOpts || {});
         if (useCoverage) {
-          babelOpts.coverage = true;
+          babelOpts.coverage = options.builtinOpts.coverage;
         }
 
         // translate sourceMap options from typescript to babel

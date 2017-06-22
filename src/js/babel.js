@@ -82,15 +82,13 @@ export default class BabelCompiler extends SimpleCompilerBase {
       babelrc: false
     });
 
-    let useCoverage = false;
+    let coverage;
     if ('coverage' in opts) {
-      if (typeof opts.coverage === 'string') {
-        useCoverage = this.getEnv() === opts.coverage;
+      if (typeof opts.coverage === "boolean") {
+        coverage = {};
       } else {
-        useCoverage = !!opts.coverage;
+        coverage = opts.coverage;
       }
-
-      useCoverage = !!opts.coverage;
       delete opts.coverage;
     }
 
@@ -104,12 +102,13 @@ export default class BabelCompiler extends SimpleCompilerBase {
       if (presets && presets.length === opts.presets.length) opts.presets = presets;
     }
 
+    let useCoverage = coverage && this.getEnv() === "test";
     if (useCoverage) {
       babelPluginIstanbul = babelPluginIstanbul || require('babel-plugin-istanbul').default;
       const coveragePlugin = [
-        babelPluginIstanbul, {
+        babelPluginIstanbul, Object.assign(coverage, {
           inputSourceMap: compilerContext.inputSourceMap,
-        },
+        }),
       ];
       opts.plugins = (opts.plugins || []).concat([coveragePlugin]);
     }
