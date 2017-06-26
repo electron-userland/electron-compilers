@@ -6,6 +6,7 @@ const inputMimeTypes = ['text/typescript', 'text/tsx'];
 const d = require('debug')('electron-compile:typescript-compiler');
 
 let ts = null;
+let convertSourceMap = null;
 
 const builtinKeys = ['hotModuleReload', 'coverage', 'babel'];
 
@@ -118,13 +119,26 @@ export default class TypeScriptCompiler extends SimpleCompilerBase {
         // babel API wants sourceMap as an object or a path. let's not touch the disk.
         inputSourceMap: sourceMaps ? JSON.parse(sourceMaps) : null,
       });
-      let babelOutput = this.babel.compileSync(code, filePath, {});
+
+      convertSourceMap = convertSourceMap || require("convert-source-map");
+      let inputCode = convertSourceMap.removeComments(code);
+      let babelOutput = this.babel.compileSync(inputCode, filePath, {});
 
       // babel-transformed, potentially instrumented code
       code = babelOutput.code;
 
       // null if inline sourceMaps are used, which is okay.
       sourceMaps = babelOutput.sourceMaps;
+
+      // work around babel bug: up till https://github.com/babel/babel/commit/1e55653ac173c3a59f403a7b5269cf6d143d32d9
+      // at least, babel forces external sourceMaps if an inputSourceMap is specified. but if
+      // the user asked for inline source maps, we want to give them inline source maps.
+      if (this.babel.compilerOptions.sourceMaps === "inline" && sourceMaps) {
+        // remove any references and convert external sourcemaps to inline
+        code = convertSourceMap.removeComments(code);
+        code += "\n" + convertSourceMap.fromJSON(sourceMaps).toComment();
+        sourceMaps = null;
+      }
 
       // NB we don't need to mess with mime type, it's application/javascript all the way down.
     }
