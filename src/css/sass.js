@@ -164,11 +164,8 @@ export default class SassCompiler extends CompilerBase {
         done();
         return;
       } else {
-        // treat as it
-        const importRequest = request.current;
-
-        for (let includePath of includePaths) {
-          const filePath = path.resolve(includePath, importRequest);
+        const filePathGenerator = getFilepathsForVariation(includePaths, request);
+        for (let filePath of filePathGenerator) {
           let variations = sass.getPathVariations(filePath);
 
           file = variations
@@ -229,5 +226,14 @@ export default class SassCompiler extends CompilerBase {
     // work but only in saveConfiguration tests
     //return require('@paulcbetts/node-sass/package.json').version;
     return "4.1.1";
+  }
+}
+
+function *getFilepathsForVariation(includePaths, request) {
+  const resolved = request.resolved.replace(/^\/sass\//, '');
+  yield resolved;
+  const current = request.current;
+  for (let includePath of includePaths) {
+    yield path.resolve(includePath, current);
   }
 }
