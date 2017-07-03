@@ -164,17 +164,8 @@ export default class SassCompiler extends CompilerBase {
         done();
         return;
       } else {
-        // sass.js works in the '/sass/' directory
-        let cleanedRequestPath = request.resolved.replace(/^\/sass\//, '');
-
-        // if we are importing from the entry file (stdin) the path is
-        // resolved with a leading '/'' -> remove it
-        if (request.previous === 'stdin' && cleanedRequestPath.charAt(0) === '/') {
-          cleanedRequestPath = cleanedRequestPath.substring(1);
-        }
-
-        for (let includePath of includePaths) {
-          const filePath = path.resolve(includePath, cleanedRequestPath);
+        const filePathGenerator = getFilepathsForVariation(includePaths, request);
+        for (let filePath of filePathGenerator) {
           let variations = sass.getPathVariations(filePath);
 
           file = variations
@@ -235,5 +226,14 @@ export default class SassCompiler extends CompilerBase {
     // work but only in saveConfiguration tests
     //return require('@paulcbetts/node-sass/package.json').version;
     return "4.1.1";
+  }
+}
+
+function *getFilepathsForVariation(includePaths, request) {
+  const resolved = request.resolved.replace(/^\/sass\//, '');
+  yield resolved;
+  const current = request.current;
+  for (let includePath of includePaths) {
+    yield path.resolve(includePath, current);
   }
 }
