@@ -49,6 +49,16 @@ export default class SassCompiler extends CompilerBase {
       paths.push(...this.compilerOptions.paths);
     }
 
+    // Add paths from option 'includePaths' in file .compilerc 
+    if (this.compilerOptions.includePaths) {
+      for (const includePath of this.compilerOptions.includePaths) {
+        paths.push(path.join(thisPath, includePath));
+      }
+      // NB. 'includePaths' is not a valid option for the sass compiler. 
+      // Remove 'includePaths' after it has served its purpose.
+      delete this.compilerOptions.includePaths;
+    }
+
     paths.unshift('.');
 
     sass.importer(this.buildImporterCallback(paths));
