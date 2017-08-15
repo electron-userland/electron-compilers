@@ -30,7 +30,8 @@ export default class SassCompiler extends CompilerBase {
   }
 
   async shouldCompileFile(fileName, compilerContext) {
-    return true;
+    let basename = path.basename(fileName);
+    return basename[0] != "_";
   }
 
   async determineDependentFiles(sourceCode, filePath, compilerContext) {
@@ -87,7 +88,8 @@ export default class SassCompiler extends CompilerBase {
   }
 
   shouldCompileFileSync(fileName, compilerContext) {
-    return true;
+    let basename = path.basename(fileName);
+    return basename[0] != "_";
   }
 
   determineDependentFilesSync(sourceCode, filePath, compilerContext) {
