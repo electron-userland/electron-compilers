@@ -23,6 +23,9 @@ export default class ElmCompiler extends SimpleCompilerBase {
       yes: true
     });
 
+    if (make.status > 0) {
+      throw new Error('elm-make failed, see console for details');
+    }
     if (make.error) {
       throw make.error;
     }
