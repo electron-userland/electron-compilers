@@ -38,6 +38,7 @@
     "detective-sass": "^2.0.0",
     "detective-scss": "^1.0.0",
     "detective-stylus": "^1.0.0",
+    "elm": "^0.18.0",
     "graphql": "^0.9.3",
     "graphql-tag": "^2.0.0",
     "istanbul": "^0.4.5",
@@ -46,6 +47,7 @@
     "less": "^2.7.1",
     "mkdirp": "^0.5.1",
     "nib": "^1.1.2",
+    "node-elm-compiler": "^4.3.3",
     "resolve": "^1.2.0",
     "rimraf": "^2.5.4",
     "sass-lookup": "^1.0.2",
@@ -53,6 +55,7 @@
     "sorcery": "^0.10.0",
     "stylus": "^0.54.5",
     "stylus-lookup": "^1.0.1",
+    "tmp": "0.0.33",
     "toutsuite": "^0.6.0",
     "typescript": ">=1.6"
   },
