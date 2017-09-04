@@ -1,9 +1,9 @@
 const filenames = [
-  'js/elm',
   'css/less',
   'css/sass',
   'css/stylus',
   'js/babel',
+  'js/elm',
   'js/graphql',
   'js/coffeescript',
   'js/typescript',
