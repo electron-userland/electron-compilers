@@ -13,6 +13,10 @@ export default class ElmCompiler extends SimpleCompilerBase {
     return inputMimeTypes;
   }
 
+  async shouldCompileFile(fileName, compilerContext) {
+    return !fileName.match(/(elm-stuff)[\\\/]/i);
+  }
+
   compileSync(sourceCode, filePath) {
     elmCompiler = elmCompiler || require('node-elm-compiler');
     const output = tmp.fileSync({ postfix: '.js' });
