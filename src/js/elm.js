@@ -20,11 +20,14 @@ export default class ElmCompiler extends SimpleCompilerBase {
     const make = elmCompiler.compileSync(filePath, {
       pathToMake: require.resolve('.bin/elm-make'),
       output: output.name,
-      yes: true
+      yes: true,
+      processOpts: {
+        stdio: 'pipe'
+      }
     });
 
     if (make.status > 0) {
-      throw new Error('elm-make failed, see console for details');
+      throw new Error(String(make.stderr));
     }
     if (make.error) {
       throw make.error;
