@@ -19,7 +19,7 @@ export default class CoffeeScriptCompiler extends SimpleCompilerBase {
   }
 
   compileSync(sourceCode, filePath) {
-    coffee = coffee || require('coffee-script');
+    coffee = coffee || require('coffeescript');
 
     let {js, v3SourceMap} = coffee.compile(
       sourceCode,
@@ -44,6 +44,6 @@ export default class CoffeeScriptCompiler extends SimpleCompilerBase {
   }
 
   getCompilerVersion() {
-    return require('coffee-script/package.json').version;
+    return require('coffeescript/package.json').version;
   }
 }
