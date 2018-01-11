@@ -163,7 +163,9 @@ export default class SassCompiler extends CompilerBase {
       } else {
         // sass.js works in the '/sass/' directory
         const cleanedRequestPath = request.resolved.replace(/^\/sass\//, '');
-        for (let includePath of includePaths) {
+        const cleanedPreviousPath = request.previous.replace(/^\/sass\//, '');
+        const includePaths_ = [path.dirname(cleanedPreviousPath)].concat(includePaths)
+        for (let includePath of includePaths_) {
           const filePath = path.resolve(includePath, cleanedRequestPath);
           let variations = sass.getPathVariations(filePath);
 
