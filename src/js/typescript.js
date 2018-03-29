@@ -1,4 +1,5 @@
 import {SimpleCompilerBase} from '../compiler-base';
+import fs from 'fs';
 import path from 'path';
 import jsEscape from 'js-string-escape';
 
@@ -17,9 +18,19 @@ export default class TypeScriptCompiler extends SimpleCompilerBase {
 
     this.outMimeType = 'application/javascript';
     this.compilerOptions = {
+      ...TypeScriptCompiler.getTSConfigOptions(),
       inlineSourceMap: true,
       inlineSources: true
     };
+  }
+
+  static getTSConfigOptions() {
+    const configFile = path.join(process.cwd(), 'tsconfig.json');
+    if (fs.existsSync(configFile)) {
+      return require(configFile).compilerOptions;
+    } else {
+      return {};
+    }
   }
 
   static getInputMimeTypes() {
