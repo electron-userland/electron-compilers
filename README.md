@@ -20,6 +20,7 @@ For CSS:
 For HTML:
 
 * Jade
+* EJS
 
 For JSON:
 
