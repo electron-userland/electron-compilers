@@ -1,4 +1,10 @@
-## electron-compilers
+## DEPRECATED: electron-compilers
+
+[![No Maintenance Intended](http://unmaintained.tech/badge.svg)](http://unmaintained.tech/)
+
+This project is no longer maintained, pull requests are no longer being reviewed or merged and issues are no longer being responded to. 
+
+---
 
 [![](https://electron-userland.github.io/electron-compilers/docs/badge.svg)](https://electron-userland.github.io/electron-compilers/docs)
 
