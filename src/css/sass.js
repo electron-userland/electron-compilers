@@ -58,6 +58,9 @@ export default class SassCompiler extends CompilerBase {
       sourceMapRoot: filePath,
     });
 
+    // not a valid option
+    delete opts.paths;
+
     let result = await new Promise((res,rej) => {
       sass.compile(sourceCode, opts, (r) => {
         if (r.status !== 0) {
@@ -161,10 +164,8 @@ export default class SassCompiler extends CompilerBase {
         done();
         return;
       } else {
-        // sass.js works in the '/sass/' directory
-        const cleanedRequestPath = request.resolved.replace(/^\/sass\//, '');
-        for (let includePath of includePaths) {
-          const filePath = path.resolve(includePath, cleanedRequestPath);
+        const filePathGenerator = getFilepathsForVariation(includePaths, request);
+        for (let filePath of filePathGenerator) {
           let variations = sass.getPathVariations(filePath);
 
           file = variations
@@ -225,5 +226,14 @@ export default class SassCompiler extends CompilerBase {
     // work but only in saveConfiguration tests
     //return require('@paulcbetts/node-sass/package.json').version;
     return "4.1.1";
+  }
+}
+
+function *getFilepathsForVariation(includePaths, request) {
+  const resolved = request.resolved.replace(/^\/sass\//, '');
+  yield resolved;
+  const current = request.current;
+  for (let includePath of includePaths) {
+    yield path.resolve(includePath, current);
   }
 }
