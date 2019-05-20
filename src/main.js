@@ -7,6 +7,7 @@ const filenames = [
   'js/coffeescript',
   'js/typescript',
   'json/cson',
+  'html/ejs',
   'html/inline-html',
   'html/jade',
   'html/vue',
