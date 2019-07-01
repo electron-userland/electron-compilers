@@ -144,4 +144,11 @@ export class SimpleCompilerBase extends CompilerBase {
   determineDependentFilesSync(sourceCode, filePath, compilerContext) { // eslint-disable-line no-unused-vars
     return [];
   }
+
+  getEnv() {
+    if (!this.__env) {
+      this.__env = process.env.ELECTRON_COMPILE_ENV || process.env.NODE_ENV || 'development';
+    }
+    return this.__env;
+  }
 }

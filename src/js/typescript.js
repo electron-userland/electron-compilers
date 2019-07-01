@@ -6,8 +6,7 @@ const inputMimeTypes = ['text/typescript', 'text/tsx'];
 const d = require('debug')('electron-compile:typescript-compiler');
 
 let ts = null;
-let istanbul = null;
-let sorcery = null;
+let convertSourceMap = null;
 
 const builtinKeys = ['hotModuleReload', 'coverage', 'babel'];
 
@@ -51,13 +50,36 @@ export default class TypeScriptCompiler extends SimpleCompilerBase {
     return parsedConfig;
   }
 
-  compileSync(sourceCode, filePath) {
+  compileSync(sourceCode, filePath, compilerContext) {
     ts = ts || require('typescript');
     const options = this._getParsedConfigOptions(ts);
 
+    let userBabelOpts = this.parsedConfig.builtinOpts.babel;
+    let useCoverage = false;
+    if ('coverage' in options.builtinOpts) {
+      // sic. this check is duplicated here because if we're not
+      // in test then we may be able to avoid the babel pass entirely.
+      if (this.getEnv() === "test") {
+        useCoverage = true;
+      }
+    }
+
+    let useBabel = !!userBabelOpts || useCoverage;
+
+    let compilerOptions = Object.assign({}, options.typescriptOpts);
+    if (useBabel) {
+      if (compilerOptions.inlineSourceMap) {
+        // force generating external sourceMaps, so we can feed them through babel.
+        // babel will then generate them inline.
+        delete compilerOptions.inlineSourceMap;
+        delete compilerOptions.inlineSources;
+        compilerOptions.sourceMap = true;
+      }
+    }
+
     const isTsx = filePath.match(/\.tsx$/i);
     const transpileOptions = {
-      compilerOptions: options.typescriptOpts,
+      compilerOptions,
       fileName: filePath.match(/\.(ts|tsx)$/i) ? path.basename(filePath) : null
     };
 
@@ -66,57 +88,63 @@ export default class TypeScriptCompiler extends SimpleCompilerBase {
     }
 
     let output = ts.transpileModule(sourceCode, transpileOptions);
-    let sourceMaps = output.sourceMapText ? output.sourceMapText : null;
-    if (options.builtinOpts.coverage) {
-      sourceMaps = null;
-      istanbul = istanbul || require('istanbul');
-
-      sourceMaps = null;
-      output.outputText = (new istanbul.Instrumenter()).instrumentSync(output.outputText, filePath);
-    }
 
     d(JSON.stringify(output.diagnostics));
 
-    const babelOpts = this.parsedConfig.builtinOpts.babel;
-    if (babelOpts) {
+    // map typescript compiler output to electron-compilers expectations
+    let code = output.outputText;
+    let sourceMaps = output.sourceMapText ? output.sourceMapText : null; // prefer 'null' over 'undefined'
+
+    if (useBabel) {
       if (!this.babel) {
-        const BabelCompiler = require("./babel").default;
+        const BabelCompiler = require('./babel').default;
         this.babel = new BabelCompiler();
-        this.babel.compilerOptions = babelOpts;
+
+        let babelOpts = Object.assign({}, userBabelOpts || {});
+        if (useCoverage) {
+          babelOpts.coverage = options.builtinOpts.coverage;
+        }
+
+        // translate sourceMap options from typescript to babel
+        if (options.typescriptOpts.inlineSourceMap) {
+          babelOpts.sourceMaps = 'inline';
+        } else if (options.typescriptOpts.sourceMap) {
+          babelOpts.sourceMaps = true;
+        }
+
+        this.babelOpts = babelOpts;
       }
 
-      sorcery = sorcery || require('sorcery');
-
-      let tsOutputPath = filePath.replace(/.tsx?$/i, ".js");
-      let babelOutputPath = filePath.replace(/.tsx?$/i, ".babel.js");
-
-      output.outputText = output.outputText.replace(/\/\/# sourceMap.*/g, "");
-
-      let babelOutput = this.babel.compileSync(output.outputText, tsOutputPath);
-      let chain = sorcery.loadSync(babelOutputPath, {
-        content: {
-          [filePath]: sourceCode,
-          [tsOutputPath]: output.outputText,
-          [babelOutputPath]: babelOutput.code,
-        },
-        sourcemaps: {
-          [tsOutputPath]: JSON.parse(sourceMaps),
-          [babelOutputPath]: JSON.parse(babelOutput.sourceMaps),
-        }
+      this.babel.compilerOptions = Object.assign({}, this.babelOpts, {
+        // babel API wants sourceMap as an object or a path. let's not touch the disk.
+        inputSourceMap: sourceMaps ? JSON.parse(sourceMaps) : null,
       });
-      let finalSourceMaps = chain.apply();
-      let outputCode = babelOutput.code + "\n//# sourceMappingURL=" + finalSourceMaps.toUrl();
 
-      // the only way to make sourceMaps usable seems to be to have
-      // them inlined right now, see https://github.com/electron/electron-compile/issues/172#issuecomment-277146112
-      return {
-        code: outputCode,
-        mimeType: babelOutput.mimeType,
-      };
+      convertSourceMap = convertSourceMap || require("convert-source-map");
+      let inputCode = convertSourceMap.removeComments(code);
+      let babelOutput = this.babel.compileSync(inputCode, filePath, {});
+
+      // babel-transformed, potentially instrumented code
+      code = babelOutput.code;
+
+      // null if inline sourceMaps are used, which is okay.
+      sourceMaps = babelOutput.sourceMaps;
+
+      // work around babel bug: up till https://github.com/babel/babel/commit/1e55653ac173c3a59f403a7b5269cf6d143d32d9
+      // at least, babel forces external sourceMaps if an inputSourceMap is specified. but if
+      // the user asked for inline source maps, we want to give them inline source maps.
+      if (this.babel.compilerOptions.sourceMaps === "inline" && sourceMaps) {
+        // remove any references and convert external sourcemaps to inline
+        code = convertSourceMap.removeComments(code);
+        code += "\n" + convertSourceMap.fromJSON(sourceMaps).toComment();
+        sourceMaps = null;
+      }
+
+      // NB we don't need to mess with mime type, it's application/javascript all the way down.
     }
 
     return {
-      code: output.outputText,
+      code,
       mimeType: this.outMimeType,
       sourceMaps
     };
